@@ -1,4 +1,5 @@
-import { Avatar, MenuItem, Menu } from '@mui/material';
+import { Avatar, MenuItem, Menu, Link } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom'
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { stringAvatar } from '../Utils/stringAvatar';
@@ -20,9 +21,14 @@ export const ProfileMenu = () => {
 			<Avatar {...(userName ? stringAvatar(userName) : null)} onClick={handleOpen} />
 			<Menu open={open} anchorEl={anchor} onClose={handleClose}>
 				<MenuItem>Profile</MenuItem>
-				<MenuItem>My Orders</MenuItem>
-				<MenuItem>{user ? 'Logout' : 'Login'}</MenuItem>
+				<MenuItem><RouterLink to='/myorders'>My Orders</RouterLink></MenuItem>
+				<MenuItem >
+					<Link component={RouterLink} to='/admin/dashboard/'>Admin Dashboard</Link> </MenuItem>
+				<MenuItem>{user ? <Logout /> : <Login />}</MenuItem>
 			</Menu>
 		</>
 	);
 };
+
+const Login = () => (<RouterLink to='/login'>Login</RouterLink>)
+const Logout = () => (<RouterLink to='/logout'>Logout</RouterLink>)

@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const sampleCategories = ['Phones', 'Tablets', 'Laptops', 'Desktops', 'Smart Tvs']
+const sampleCategories = ['All Products', 'Phones', 'Tablets', 'Laptops', 'Desktops', 'Smart Tvs']
 
 export const Categories = () => {
 	return (
@@ -12,9 +12,8 @@ export const Categories = () => {
 			gap: 1,
 			py: 2
 		}}>
-			<NavLink to="/">All Categories</NavLink>
-			{sampleCategories.map((category => (
-				<NavLink to={`/?category=${category}`}>{category}</NavLink>
+			{sampleCategories.map(((category, index) => (
+				<NavLink key={index} to={`/?category=${category}`}>{category}</NavLink>
 			)))}
 		</Box>
 	);

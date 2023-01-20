@@ -9,6 +9,8 @@ import { Signup } from './routes/Signup';
 import { Login } from './routes/Login';
 import { Footer } from './routes/Footer';
 import { Container } from '@mui/material';
+import { Dashboard } from './routes/Dashboard';
+import { MyOrders } from './routes/MyOrders';
 
 function App() {
 	return (
@@ -33,9 +35,13 @@ function App() {
 					<Route path="/products/:id" element={<Product />} />
 					<Route path="/cart" element={<Cart />} />
 					<Route path="/profile" element={<Profile />} />
+					<Route path="/myorders" element={<MyOrders />} />
 					<Route path="/shippingscreen" element={<ShippingScreen />} />
 					<Route path="/signup" element={<Signup />} />
 					<Route path="/login" element={<Login />} />
+					<Route path="/admin/dashboard" element={<Dashboard />} />
+					<Route path="/admin/dashboard/:menu" element={<Dashboard />} />
+
 				</Routes>
 			</Container>
 			<Footer />

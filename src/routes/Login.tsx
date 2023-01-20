@@ -1,17 +1,22 @@
 import { Box, Button, Container, Paper, TextField, Typography } from '@mui/material';
+import { Stack } from '@mui/system';
+import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 
 export const Login = () => {
 	return (
-		<Container component={Paper} maxWidth="xs" elevation={3}>
+		<Container component={Paper} maxWidth="xs" elevation={3}
+			sx={{
+				my: 8
+			}}
+		>
 			<Box
 				component="form"
 				sx={{
 					display: 'flex',
 					flexDirection: 'column',
-					pt: 8,
+					py: 4,
 					minHeight: '50vh',
-					mt: 10,
 					gap: 2,
 				}}
 			>
@@ -24,6 +29,12 @@ export const Login = () => {
 				<Button variant="contained" type="submit" sx={{ mt: 4 }}>
 					Login
 				</Button>
+				<Stack direction='row'>
+					<Typography variant='body1'>No account? &nbsp;</Typography>
+
+					<Link to='/signup'>Sign Up!</Link>
+
+				</Stack>
 			</Box>
 		</Container>
 	);

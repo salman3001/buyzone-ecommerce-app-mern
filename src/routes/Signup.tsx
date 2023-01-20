@@ -1,6 +1,6 @@
-import { Alert, Box, Button, Paper, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Paper, Stack, TextField, Typography } from '@mui/material';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as yup from 'yup';
@@ -43,16 +43,19 @@ export const Signup = () => {
 	});
 
 	return (
-		<Container component={Paper} maxWidth="xs">
+		<Container component={Paper} maxWidth="xs" elevation={4} sx={{
+			my: 8
+		}}>
 			<Box
 				component="form"
 				onSubmit={formik.handleSubmit}
 				sx={{
+					display: "flex",
+					flexDirection: 'column',
+					gap: 4,
 					mt: 8,
 					py: 8,
-					'& 	.MuiTextField-root': {
-						py: '10px',
-					},
+
 					'& 	.MuiButton-root': {
 						mt: 2,
 					},
@@ -112,6 +115,12 @@ export const Signup = () => {
 				<Button color="primary" variant="contained" fullWidth type="submit">
 					Submit
 				</Button>
+				<Stack direction='row'>
+					<Typography variant='body1'>Already have an account? &nbsp;</Typography>
+
+					<Link to='/login'>Log in!</Link>
+
+				</Stack>
 			</Box>
 		</Container>
 	);
