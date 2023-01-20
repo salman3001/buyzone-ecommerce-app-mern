@@ -1,8 +1,11 @@
 import { Box, Divider } from '@mui/material';
 import { Categories } from '../components/Categories';
 import { Sidebar } from '../components/Sidebar';
-
+import Products from '../components/Products'
 export const Home = () => {
+
+
+
 	return (
 		<Box
 			sx={{
@@ -14,7 +17,7 @@ export const Home = () => {
 		>
 			<Sidebar Content={Categories} />
 			<Divider orientation="vertical" flexItem />
-			<Box>hello</Box>
+			<Products />
 		</Box>
 	);
 };

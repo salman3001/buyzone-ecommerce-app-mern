@@ -1,4 +1,4 @@
-import { Box, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import React, { useState } from 'react';
 
@@ -10,7 +10,7 @@ export const Sidebar: React.FunctionComponent<ISidebar> = ({ Content }) => {
 	const [state, setState] = useState(false);
 	const clickHandler = () => {
 		setState((state) => (state ? false : true));
-		s;
+
 	};
 	return (
 		<Box
@@ -34,7 +34,11 @@ export const Sidebar: React.FunctionComponent<ISidebar> = ({ Content }) => {
 				<MenuOutlinedIcon />
 				Categories
 			</IconButton>
-			{state && <Content />}
+			<Box sx={{
+				display: [state ? "block" : 'none', 'block']
+			}}>
+				<Content />
+			</Box>
 		</Box>
 	);
 };

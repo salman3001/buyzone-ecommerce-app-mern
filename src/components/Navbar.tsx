@@ -2,11 +2,10 @@ import { Typography, Toolbar, AppBar, Stack, IconButton, Badge, Box, Link, Butto
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { ProfileMenu } from './ProfileMenu';
 import { SearchField } from './SearchField';
-import { NavLink } from 'react-router-dom';
 
 export const Navbar = () => {
 	return (
-		<AppBar position="static">
+		<AppBar position="static" elevation={0}>
 			<Toolbar>
 				<Box
 					sx={{

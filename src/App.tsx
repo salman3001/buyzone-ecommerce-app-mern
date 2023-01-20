@@ -9,7 +9,6 @@ import { Signup } from './routes/Signup';
 import { Login } from './routes/Login';
 import { Footer } from './routes/Footer';
 import { Container } from '@mui/material';
-import { Sidebar } from './components/Sidebar';
 
 function App() {
 	return (
