@@ -1,18 +1,34 @@
 import { Navbar } from './components/Navbar';
 import { Routes, Route } from 'react-router-dom';
-import { Home } from './components/Home';
-import { Product } from './components/Product';
+import { Home } from './routes/Home';
+import { Product } from './routes/Product';
 import { Cart } from './components/Cart';
-import { Profile } from './components/Profile';
-import { ShippingScreen } from './components/ShippingScreen';
-import { Signup } from './components/Signup';
-import { Login } from './components/Login';
+import { Profile } from './routes/Profile';
+import { ShippingScreen } from './routes/ShippingScreen';
+import { Signup } from './routes/Signup';
+import { Login } from './routes/Login';
+import { Footer } from './routes/Footer';
+import { Container } from '@mui/material';
+import { Sidebar } from './components/Sidebar';
 
 function App() {
 	return (
-		<>
+		<div
+			style={{
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'space-between',
+				minHeight: '100vh',
+			}}
+		>
 			<Navbar />
-			<main>
+			<Container
+				component="main"
+				maxWidth={false}
+				sx={{
+					flexGrow: 1,
+				}}
+			>
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/products/:id" element={<Product />} />
@@ -22,8 +38,9 @@ function App() {
 					<Route path="/signup" element={<Signup />} />
 					<Route path="/login" element={<Login />} />
 				</Routes>
-			</main>
-		</>
+			</Container>
+			<Footer />
+		</div>
 	);
 }
 

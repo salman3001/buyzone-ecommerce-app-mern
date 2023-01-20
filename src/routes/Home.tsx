@@ -1,5 +1,6 @@
 import { Box, Divider } from '@mui/material';
-import { Sidebar } from './Sidebar';
+import { Categories } from '../components/Categories';
+import { Sidebar } from '../components/Sidebar';
 
 export const Home = () => {
 	return (
@@ -7,11 +8,11 @@ export const Home = () => {
 			sx={{
 				display: 'flex',
 				flexDirection: ['column', 'row'],
-				minHeight: '100vh',
 				bgcolor: 'background.paper',
+				minHeight: 'inherit',
 			}}
 		>
-			<Sidebar />
+			<Sidebar Content={Categories} />
 			<Divider orientation="vertical" flexItem />
 			<Box>hello</Box>
 		</Box>

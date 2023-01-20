@@ -1,6 +1,8 @@
-import { Typography, Toolbar, AppBar, Stack, IconButton, Badge, Box } from '@mui/material';
+import { Typography, Toolbar, AppBar, Stack, IconButton, Badge, Box, Link, Button } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { ProfileMenu } from './ProfileMenu';
+import { SearchField } from './SearchField';
+import { NavLink } from 'react-router-dom';
 
 export const Navbar = () => {
 	return (
@@ -13,9 +15,22 @@ export const Navbar = () => {
 						width: '100%',
 					}}
 				>
-					<Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+					<Typography
+						variant="h5"
+						component="a"
+						href="/"
+						sx={{
+							fontWeight: 'bold',
+							textDecoration: 'none',
+							':visited': {
+								color: 'white',
+							},
+						}}
+					>
 						BuyZone
 					</Typography>
+					<SearchField />
+
 					<Stack direction="row" spacing={3}>
 						<Badge
 							badgeContent={4}
