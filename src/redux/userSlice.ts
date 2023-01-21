@@ -1,33 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-export interface UserState {
-	userName: string;
-	email: string;
-	isAdmin: string;
-	userId: string;
-}
+export type UserState = {
+	user: {
+		id: string;
+		isAdmin: boolean;
+		name: string;
+		email: string;
+	} | null;
+};
 
-const initialState: UserState | null = null;
+const initialState: UserState = { user: null };
 
 export const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
-		setUser: (state, action: PayloadAction) => {
+		setUser: (state, action: PayloadAction<UserState['user']>) => {
 			localStorage.setItem('user', JSON.stringify(action.payload));
+			state.user = action.payload;
 		},
-		getUser: (state, action: PayloadAction) => {
-			const user = JSON.parse(localStorage.getItem('user') as string);
-			state = user;
-		},
-		removeUser: (state, action: PayloadAction) => {
+		removeUser: (state) => {
 			localStorage.removeItem('user');
+			state.user = null;
 		},
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const { setUser, getUser, removeUser } = userSlice.actions;
+export const { setUser, removeUser } = userSlice.actions;
 
 export default userSlice.reducer;

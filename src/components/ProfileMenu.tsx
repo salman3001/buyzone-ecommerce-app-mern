@@ -1,12 +1,14 @@
 import { Avatar, MenuItem, Menu, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { stringAvatar } from '../Utils/stringAvatar';
 import { RootState } from '../redux/store';
+import { removeUser } from '../redux/userSlice';
+import axios from 'axios';
 
 export const ProfileMenu = () => {
-	const user = useSelector((state: RootState) => state.user);
+	const { user } = useSelector((state: RootState) => state.user);
 	const [anchor, setAnchor] = useState<null | HTMLElement>(null);
 	let open = Boolean(anchor);
 	const handleOpen = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -15,7 +17,7 @@ export const ProfileMenu = () => {
 	const handleClose = () => {
 		setAnchor(null);
 	};
-	const userName = (user as any)?.userName ? (user as any).userName : null;
+	const userName = (user as any)?.name ? (user as any).name : null;
 	return (
 		<>
 			<Avatar {...(userName ? stringAvatar(userName) : null)} onClick={handleOpen} />
@@ -38,4 +40,23 @@ export const ProfileMenu = () => {
 };
 
 const Login = () => <RouterLink to="/login">Login</RouterLink>;
-const Logout = () => <RouterLink to="/logout">Logout</RouterLink>;
+const Logout = () => {
+	const dispatch = useDispatch();
+
+	return (
+		<Link
+			onClick={async () => {
+				try {
+					const res = await axios.get('/api/logout');
+					console.log(res);
+
+					dispatch(removeUser());
+				} catch (err) {
+					alert('server error loging  out');
+				}
+			}}
+		>
+			Logout
+		</Link>
+	);
+};
