@@ -43,14 +43,19 @@ export const ShippingScreen = () => {
 	});
 
 	return (
-		<Container component={Paper} maxWidth="xs" elevation={4} sx={{
-			my: 8
-		}}>
+		<Container
+			component={Paper}
+			maxWidth="xs"
+			elevation={4}
+			sx={{
+				my: 8,
+			}}
+		>
 			<Box
 				component="form"
 				onSubmit={formik.handleSubmit}
 				sx={{
-					display: "flex",
+					display: 'flex',
 					flexDirection: 'column',
 					gap: 4,
 					mt: 8,
@@ -115,11 +120,10 @@ export const ShippingScreen = () => {
 				<Button color="primary" variant="contained" fullWidth type="submit">
 					Submit
 				</Button>
-				<Stack direction='row'>
-					<Typography variant='body1'>Already have an account? &nbsp;</Typography>
+				<Stack direction="row">
+					<Typography variant="body1">Already have an account? &nbsp;</Typography>
 
-					<Link to='/login'>Log in!</Link>
-
+					<Link to="/login">Log in!</Link>
 				</Stack>
 			</Box>
 		</Container>

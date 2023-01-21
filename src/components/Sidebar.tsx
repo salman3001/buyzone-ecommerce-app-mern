@@ -10,7 +10,6 @@ export const Sidebar: React.FunctionComponent<ISidebar> = ({ Content }) => {
 	const [state, setState] = useState(false);
 	const clickHandler = () => {
 		setState((state) => (state ? false : true));
-
 	};
 	return (
 		<Box
@@ -34,9 +33,11 @@ export const Sidebar: React.FunctionComponent<ISidebar> = ({ Content }) => {
 				<MenuOutlinedIcon />
 				Categories
 			</IconButton>
-			<Box sx={{
-				display: [state ? "block" : 'none', 'block']
-			}}>
+			<Box
+				sx={{
+					display: [state ? 'block' : 'none', 'block'],
+				}}
+			>
 				<Content />
 			</Box>
 		</Box>

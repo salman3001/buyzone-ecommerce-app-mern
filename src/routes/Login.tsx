@@ -5,9 +5,12 @@ import * as yup from 'yup';
 
 export const Login = () => {
 	return (
-		<Container component={Paper} maxWidth="xs" elevation={3}
+		<Container
+			component={Paper}
+			maxWidth="xs"
+			elevation={3}
 			sx={{
-				my: 8
+				my: 8,
 			}}
 		>
 			<Box
@@ -29,11 +32,10 @@ export const Login = () => {
 				<Button variant="contained" type="submit" sx={{ mt: 4 }}>
 					Login
 				</Button>
-				<Stack direction='row'>
-					<Typography variant='body1'>No account? &nbsp;</Typography>
+				<Stack direction="row">
+					<Typography variant="body1">No account? &nbsp;</Typography>
 
-					<Link to='/signup'>Sign Up!</Link>
-
+					<Link to="/signup">Sign Up!</Link>
 				</Stack>
 			</Box>
 		</Container>

@@ -20,8 +20,12 @@ export const Footer = () => {
 			<Typography>Copygights @Salman Khan</Typography>
 			<Stack direction="row" gap={2}>
 				<Link href="mailto:Ssalman.k3001@gmail.com">Email</Link>
-				<Link href="https://github.com/salman3001/" target='_blank' >GitHub</Link>
-				<Link href="#Linked In" target='_blank'>Linked In</Link>
+				<Link href="https://github.com/salman3001/" target="_blank">
+					GitHub
+				</Link>
+				<Link href="#Linked In" target="_blank">
+					Linked In
+				</Link>
 			</Stack>
 		</Container>
 	);

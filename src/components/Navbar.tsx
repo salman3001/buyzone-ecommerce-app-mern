@@ -38,7 +38,7 @@ export const Navbar = () => {
 								'& .MuiBadge-badge': { top: 10 },
 							}}
 						>
-							<IconButton href='/cart'>
+							<IconButton href="/cart">
 								<ShoppingCartOutlinedIcon />
 							</IconButton>
 						</Badge>
