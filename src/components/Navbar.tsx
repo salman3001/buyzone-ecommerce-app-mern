@@ -1,4 +1,4 @@
-import { Typography, Toolbar, AppBar, Stack, IconButton, Badge, Box, Link, Button } from '@mui/material';
+import { Typography, Toolbar, AppBar, Stack, IconButton, Badge, Box } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { ProfileMenu } from './ProfileMenu';
 import { SearchField } from './SearchField';
@@ -38,7 +38,7 @@ export const Navbar = () => {
 								'& .MuiBadge-badge': { top: 10 },
 							}}
 						>
-							<IconButton>
+							<IconButton href='/cart'>
 								<ShoppingCartOutlinedIcon />
 							</IconButton>
 						</Badge>

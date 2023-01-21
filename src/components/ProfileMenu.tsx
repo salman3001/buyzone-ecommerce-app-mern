@@ -20,7 +20,7 @@ export const ProfileMenu = () => {
 		<>
 			<Avatar {...(userName ? stringAvatar(userName) : null)} onClick={handleOpen} />
 			<Menu open={open} anchorEl={anchor} onClose={handleClose}>
-				<MenuItem>Profile</MenuItem>
+				<MenuItem><RouterLink to='/profile'>My Profile</RouterLink></MenuItem>
 				<MenuItem><RouterLink to='/myorders'>My Orders</RouterLink></MenuItem>
 				<MenuItem >
 					<Link component={RouterLink} to='/admin/dashboard/'>Admin Dashboard</Link> </MenuItem>
