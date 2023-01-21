@@ -41,7 +41,6 @@ function App() {
 					<Route path="/login" element={<Login />} />
 					<Route path="/admin/dashboard" element={<Dashboard />} />
 					<Route path="/admin/dashboard/:menu" element={<Dashboard />} />
-
 				</Routes>
 			</Container>
 			<Footer />
