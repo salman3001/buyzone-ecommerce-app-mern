@@ -1,5 +1,6 @@
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
+import { ProductCard } from './ProductCard';
 
 const Products = () => {
 	const [searchParams] = useSearchParams();
@@ -8,15 +9,26 @@ const Products = () => {
 	const outOfStock = searchParams.get('outOfStock');
 	return (
 		<Box>
-			{category ? (
-				<div>{category} </div>
-			) : search ? (
-				<div>{search + ' results'}</div>
-			) : outOfStock ? (
-				<div>out fo stck products</div>
-			) : (
-				<div>all products</div>
-			)}
+			<Grid container gap={2}>
+				<Grid xs={12} sm={3} md={2} >
+					<ProductCard />
+				</Grid>
+				<Grid xs={12} sm={3} md={2} >
+					<ProductCard />
+				</Grid>
+				<Grid xs={12} sm={3} md={2} >
+					<ProductCard />
+				</Grid>
+				<Grid xs={12} sm={3} md={2} >
+					<ProductCard />
+				</Grid>
+				<Grid xs={12} sm={3} md={2} >
+					<ProductCard />
+				</Grid>
+				<Grid xs={12} sm={3} md={2} >
+					<ProductCard />
+				</Grid>
+			</Grid>
 		</Box>
 	);
 };
