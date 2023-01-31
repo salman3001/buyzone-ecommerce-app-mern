@@ -1,13 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { Cookie, CookieSharp } from '@mui/icons-material';
 
 export type UserState = {
-	user: {
-		id: string;
-		isAdmin: boolean;
-		name: string;
-		email: string;
-	} | null;
+	user: IUser | null;
 };
 
 const initialState: UserState = { user: null };
@@ -20,6 +16,10 @@ export const userSlice = createSlice({
 			localStorage.setItem('user', JSON.stringify(action.payload));
 			state.user = action.payload;
 		},
+		getUser: (state) => {
+			const user = localStorage.getItem('user');
+			user && (state.user = JSON.parse(user));
+		},
 		removeUser: (state) => {
 			localStorage.removeItem('user');
 			state.user = null;
@@ -28,6 +28,6 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setUser, removeUser } = userSlice.actions;
+export const { setUser, removeUser, getUser } = userSlice.actions;
 
 export default userSlice.reducer;

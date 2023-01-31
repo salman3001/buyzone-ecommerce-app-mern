@@ -1,43 +1,44 @@
-import { Delete } from '@mui/icons-material';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const userApi = createApi({
+export const userApi = createApi({
 	reducerPath: 'userApi',
 	baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5173/' }),
 	tagTypes: ['Users'],
 	endpoints: (builder) => ({
-		Login: builder.mutation<any, any>({
+		Login: builder.mutation<IUser, any>({
 			query: (body) => ({ url: 'api/login', method: 'POST', body }),
+			transformResponse: (response: { user: IUser }, meta, arg) => response.user,
 		}),
-		Logout: builder.query<any, any>({
-			query: () => '/api/logout',
+		Logout: builder.mutation({
+			query: () => ({ url: 'api/logout', method: 'POST' }),
 		}),
-		GetUsers: builder.query<any, any>({
-			query: () => 'api/users',
-			providesTags: [{ type: 'Users', id: 'List' }],
+		GetUsers: builder.query<IUser[], any>({
+			query: (id) => 'api/users',
+			providesTags: (result) =>
+				result
+					? [...result.map(({ _id }) => ({ type: 'Users' as const, _id })), { type: 'Users', id: 'LIST' }]
+					: [{ type: 'Users', id: 'LIST' }],
 		}),
-		DeleteUser: builder.mutation({
-			query: (id) => ({
-				url: `/api/user${id}`,
-				method: 'DELETE',
-				body: { _id: id },
-			}),
-			invalidatesTags: [
-				{
-					type: 'Users',
-					id: 'List',
-				},
-			],
+		GetProfile: builder.query<IUser[], string>({
+			query: (id) => `api/users${id}`,
+			providesTags: (_result, _error, id) => [{ type: 'Users', id }],
 		}),
-		UpdateUser: builder.mutation<any, any>({
-			query: ({ _id, ...body }) => ({
-				url: `api/users/${_id}`,
-				method: 'POST',
+		UpdateUser: builder.mutation<IUser, Partial<IUser>>({
+			query: (body) => ({
+				url: `api/users/`,
+				method: 'PATCH',
 				body,
 			}),
-			invalidatesTags: (error, result, { _id }) => [{ type: 'Users', id: _id }],
+			invalidatesTags: (user, _error, _arg) => [{ type: 'Users', id: user?._id }],
 		}),
 	}),
 });
 
-export const { useLoginQuery } = userApi;
+export const {
+	useLoginMutation,
+	useLogoutMutation,
+	useGetProfileQuery,
+	useGetUsersQuery,
+	useLazyGetProfileQuery,
+	useUpdateUserMutation,
+} = userApi;

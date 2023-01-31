@@ -36,6 +36,7 @@ export const Sidebar: React.FunctionComponent<ISidebar> = ({ Content }) => {
 			<Box
 				sx={{
 					display: [state ? 'block' : 'none', 'block'],
+					padding: 2,
 				}}
 			>
 				<Content />

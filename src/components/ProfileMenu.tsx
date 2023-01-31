@@ -1,11 +1,11 @@
 import { Avatar, MenuItem, Menu, Link } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { stringAvatar } from '../Utils/stringAvatar';
 import { RootState } from '../redux/store';
 import { removeUser } from '../redux/userSlice';
-import axios from 'axios';
+import { useLogoutMutation } from '../redux/api/userApi';
 
 export const ProfileMenu = () => {
 	const { user } = useSelector((state: RootState) => state.user);
@@ -41,16 +41,17 @@ export const ProfileMenu = () => {
 
 const Login = () => <RouterLink to="/login">Login</RouterLink>;
 const Logout = () => {
+	const [logout, { isLoading, isSuccess }] = useLogoutMutation();
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	return (
 		<Link
 			onClick={async () => {
 				try {
-					const res = await axios.get('/api/logout');
-					console.log(res);
-
-					dispatch(removeUser());
+					const res = await logout(null).unwrap();
+					res && dispatch(removeUser());
+					navigate('/');
 				} catch (err) {
 					alert('server error loging  out');
 				}

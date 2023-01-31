@@ -1,16 +1,7 @@
-import { Box, Divider } from '@mui/material';
-import { AdminMenu } from '../components/AdminMenu';
-import { Sidebar } from '../components/Sidebar';
-import Products from '../components/Products';
-import { useParams } from 'react-router-dom';
-import { AddNewProduct } from '../components/AddNewProduct';
-import { Orders } from '../components/Orders';
-import { TotalSales } from '../components/TotalSales';
+import { Box } from '@mui/material';
+import { Outlet } from 'react-router-dom';
 
-export const Dashboard = () => {
-	const param = useParams();
-	const { menu } = param;
-
+const Dashboard = () => {
 	return (
 		<Box
 			sx={{
@@ -18,21 +9,12 @@ export const Dashboard = () => {
 				flexDirection: ['column', 'row'],
 				bgcolor: 'background.paper',
 				minHeight: 'inherit',
+				width: '100%',
 			}}
 		>
-			<Sidebar Content={AdminMenu} />
-			<Divider orientation="vertical" flexItem />
-			{menu === 'Products' ? (
-				<Products />
-			) : menu === 'Add new product' ? (
-				<AddNewProduct />
-			) : menu === 'Orders' ? (
-				<Orders />
-			) : menu === 'Total Sales' ? (
-				<TotalSales />
-			) : (
-				'Welcome to admin dashboard'
-			)}
+			<Outlet />
 		</Box>
 	);
 };
+
+export default Dashboard;

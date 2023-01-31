@@ -1,12 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './userSlice';
 import tokenReducer from './tokenSlice';
+import { userApi } from './api/userApi';
+import { productApi } from './api/productsApi';
 
 export const store = configureStore({
 	reducer: {
 		user: userReducer,
 		token: tokenReducer,
+		[userApi.reducerPath]: userApi.reducer,
+		[productApi.reducerPath]: productApi.reducer,
 	},
+	middleware: (gDM) => gDM().concat(userApi.middleware, productApi.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

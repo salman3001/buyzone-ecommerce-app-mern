@@ -1,41 +1,76 @@
-import { Box, Button, Container, Paper, TextField, Typography } from '@mui/material';
+import {
+	Alert,
+	Box,
+	Button,
+	Container,
+	Paper,
+	TextField,
+	Typography,
+	TextareaAutosize,
+	InputLabel,
+} from '@mui/material';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import { FunctionComponent, useState } from 'react';
+import { useAddProductMutation } from '../redux/api/productsApi';
 
 const formSchema = yup.object().shape({
 	productName: yup
 		.string()
 		.min(2, 'minimum two charectors required')
-		.max(20, 'maximum 20 charectors allowed')
+		.max(100, 'maximum 100 charectors allowed')
 		.required('This field is required'),
 	price: yup.number().required('This field is required'),
 	inStock: yup.number().required('This field is required'),
-	files: yup.array().min(1, 'upload atleast one item').required('This field is required'),
+	category: yup
+		.string()
+		.min(2, 'minimum two charectors required')
+		.max(10, 'maximum 10 charectors allowed')
+		.required('This field is required'),
+	description: yup
+		.string()
+		.max(1000, `maximum 1000 charectors allowed`)
+		.min(2, 'minimum two cahrectors required')
+		.required('This field is required'),
+	images: yup.array().required('This field is required'),
 });
 
-export const AddNewProduct = () => {
+export const AddNewProduct: FunctionComponent = () => {
+	const [addProduct, { isError, isLoading, isSuccess, data: response, error }] = useAddProductMutation();
+	const [fileName, setFileName] = useState<string[] | null>(['']);
+
 	const formik = useFormik({
 		initialValues: {
 			productName: '',
 			price: '',
 			inStock: '',
-			files: '',
+			category: '',
+			description: '',
+			images: '',
 		},
 		validationSchema: formSchema,
-		onSubmit: (values) => {
-			console.log(values);
-			alert(values);
+		onSubmit: async (values) => {
+			const formData = new FormData();
+			formData.append('name', values.productName);
+			formData.append('price', values.price);
+			formData.append('inStock', values.inStock);
+			formData.append('category', values.category);
+			formData.append('description', values.description);
+
+			Object.keys(values.images).forEach((key, index) => {
+				if (index < values.images.length) {
+					formData.append('images', values.images[key]);
+				}
+			});
+
+			await addProduct(formData).unwrap();
+			isSuccess && alert(response?.message || 'product added successfully');
+			formik.resetForm();
+			setFileName(null);
 		},
 	});
 	return (
-		<Container
-			component={Paper}
-			maxWidth="xs"
-			elevation={3}
-			sx={{
-				my: 8,
-			}}
-		>
+		<Container component={Paper} maxWidth="xs" elevation={3} sx={{ width: '100%' }}>
 			<Box
 				component="form"
 				sx={{
@@ -54,7 +89,7 @@ export const AddNewProduct = () => {
 				<Typography variant="h5" fontWeight="bold" alignSelf="center" py={2}>
 					Add a new product
 				</Typography>
-
+				{isError && <Alert severity="error">{error}</Alert>}
 				<TextField
 					name="productName"
 					id="productNamel"
@@ -74,6 +109,15 @@ export const AddNewProduct = () => {
 					helperText={formik.touched.price && formik.errors.price}
 				/>
 				<TextField
+					name="category"
+					id="category"
+					label="Category"
+					value={formik.values.category}
+					onChange={formik.handleChange}
+					error={formik.touched.category && Boolean(formik.errors.category)}
+					helperText={formik.touched.category && formik.errors.category}
+				/>
+				<TextField
 					name="inStock"
 					id="inStock"
 					label="Total Stock Count"
@@ -82,28 +126,54 @@ export const AddNewProduct = () => {
 					error={formik.touched.inStock && Boolean(formik.errors.inStock)}
 					helperText={formik.touched.inStock && formik.errors.inStock}
 				/>
+				<InputLabel sx={{ pt: 2 }}> Describe Product</InputLabel>
+				<TextareaAutosize
+					name="description"
+					id="description"
+					minRows={4}
+					value={formik.values.description}
+					onChange={formik.handleChange}
+				/>
+				{formik.touched.description && Boolean(formik.errors.description) && (
+					<Typography color="red">{formik.touched.description && formik.errors.description}</Typography>
+				)}
 				<Button
 					component="label"
-					color={formik.touched.files && Boolean(formik.errors.files) ? 'error' : 'primary'}
+					color={formik.touched.images && Boolean(formik.errors.images) ? 'error' : 'primary'}
 					variant="contained"
 				>
 					Upload Images
 					<input
 						hidden={true}
-						name="files"
-						id="files"
+						name="images"
+						id="images"
 						type="file"
 						accept="images/png"
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-							let files = e.currentTarget.files;
-							formik.setFieldValue('files', [...(files as any)]);
+							const files = e.currentTarget.files;
+							void formik.setFieldValue('images', [...(files as any)]);
+							setFileName(() => {
+								if (files != null) {
+									const newState = Object.keys(files).map((key, index) => {
+										if (index < files?.length) {
+											return files[key].name;
+										}
+									});
+									return newState;
+								}
+							});
 						}}
 						multiple
 						// error={formik.touched.files && Boolean(formik.errors.files)}
 					/>
 				</Button>
+				{fileName?.map((name, index) => (
+					<Typography key={index} color="black">
+						{name}
+					</Typography>
+				))}
 
-				<Button variant="contained" type="submit" sx={{ mt: 4 }}>
+				<Button variant="contained" type="submit" sx={{ mt: 4 }} disabled={isLoading}>
 					Add Product
 				</Button>
 			</Box>

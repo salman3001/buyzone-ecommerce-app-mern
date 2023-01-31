@@ -14,7 +14,7 @@ export const AdminMenu = () => {
 			}}
 		>
 			{menuItems.map((category, index) => (
-				<NavLink key={index} to={`/admin/dashboard/${category}`}>
+				<NavLink key={index} to={`/admin/dashboard/${category.replace(/\s/g, '')}`}>
 					{category}
 				</NavLink>
 			))}
