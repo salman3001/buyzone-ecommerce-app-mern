@@ -25,3 +25,27 @@ interface IProductQueryString {
 	sortPrice: string;
 	sortDate: string;
 }
+
+interface IOrder {
+	_id?: string;
+	userId: string;
+	products: Array<{
+		id: string;
+		quantity: number;
+		price: number;
+	}>;
+	deliveryAddress: {
+		building: string;
+		street: string;
+		city: string;
+		mobile: number;
+		pin: number;
+		addressLine?: string;
+		country: 'UAE' | 'USA';
+	};
+	status: 'Delivered' | 'Pending' | 'Confirmed' | 'Canceled';
+	payment: {
+		mode: 'cod' | 'card';
+		paid: boolean;
+	};
+}
