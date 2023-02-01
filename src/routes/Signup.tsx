@@ -43,14 +43,7 @@ export const Signup = () => {
 	});
 
 	return (
-		<Container
-			component={Paper}
-			maxWidth="xs"
-			elevation={4}
-			sx={{
-				my: 8,
-			}}
-		>
+		<Container component={Paper} maxWidth="xs" elevation={4} sx={{ my: 4 }}>
 			<Box
 				component="form"
 				onSubmit={formik.handleSubmit}
@@ -58,9 +51,7 @@ export const Signup = () => {
 					display: 'flex',
 					flexDirection: 'column',
 					gap: 4,
-					mt: 8,
-					py: 8,
-
+					py: 4,
 					'& 	.MuiButton-root': {
 						mt: 2,
 					},
@@ -123,7 +114,7 @@ export const Signup = () => {
 				<Stack direction="row">
 					<Typography variant="body1">Already have an account? &nbsp;</Typography>
 
-					<Link to="/login">Log in!</Link>
+					<Link to="/user/login">Log in!</Link>
 				</Stack>
 			</Box>
 		</Container>

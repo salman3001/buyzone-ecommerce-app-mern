@@ -94,7 +94,7 @@ export const Login = () => {
 				<Stack direction="row">
 					<Typography variant="body1">No account? &nbsp;</Typography>
 
-					<Link to="/signup">Sign Up!</Link>
+					<Link to="/user/signup">Sign Up!</Link>
 				</Stack>
 			</Box>
 		</Container>

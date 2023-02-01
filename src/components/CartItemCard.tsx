@@ -25,7 +25,7 @@ const CartItemCard: FunctionComponent<ICartItem> = ({ id, qty, price }) => {
 				) : isError ? (
 					<Typography>Error Loading Cart Item..</Typography>
 				) : (
-					<Stack direction="row" gap={2}>
+					<Stack direction={['column', 'column', 'row']} gap={2}>
 						<Box
 							sx={{
 								width: '100px',
@@ -58,7 +58,8 @@ const CartItemCard: FunctionComponent<ICartItem> = ({ id, qty, price }) => {
 							>
 								{item?.name}
 							</Typography>
-							<Stack direction="row" justifyContent="end" alignItems="center" gap={1}>
+							<Stack direction="row" justifyContent="end" alignItems="center" gap={2}>
+								<Typography sx={{ px: 2, color: 'green' }}>{item.inStock} in stock</Typography>
 								Qty
 								<Button
 									sx={{

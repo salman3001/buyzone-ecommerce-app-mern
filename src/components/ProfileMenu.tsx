@@ -26,7 +26,7 @@ export const ProfileMenu = () => {
 					<RouterLink to="/user/profile">My Profile</RouterLink>
 				</MenuItem>
 				<MenuItem onClick={handleClose}>
-					<RouterLink to="user/myorders">My Orders</RouterLink>
+					<RouterLink to="/user/myorders">My Orders</RouterLink>
 				</MenuItem>
 				<MenuItem onClick={handleClose}>
 					<Link component={RouterLink} to="/admin/dashboard/">
@@ -39,7 +39,7 @@ export const ProfileMenu = () => {
 	);
 };
 
-const Login = () => <RouterLink to="/login">Login</RouterLink>;
+const Login = () => <RouterLink to="/user/login">Login</RouterLink>;
 const Logout = () => {
 	const [logout, { isLoading }] = useLogoutMutation();
 	const dispatch = useDispatch();

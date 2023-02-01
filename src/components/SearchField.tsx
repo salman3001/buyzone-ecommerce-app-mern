@@ -2,7 +2,7 @@ import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { type CSSObject } from '@emotion/react';
-import { useSearchParams } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import { type KeyboardEventHandler } from 'react';
 
 const Search = styled('div')(
@@ -52,12 +52,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export const SearchField = () => {
-	const [, setParams] = useSearchParams();
+	const navigate = useNavigate();
 
 	const searchHandler = (e: KeyboardEventHandler<HTMLInputElement>) => {
 		if (e.key === 'Enter') {
-			setParams({
-				search: e.currentTarget.value,
+			navigate({
+				pathname: '/',
+				search: createSearchParams({
+					search: e.currentTarget.value,
+				}).toString(),
 			});
 		}
 	};
