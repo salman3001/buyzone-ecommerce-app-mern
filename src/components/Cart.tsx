@@ -1,27 +1,41 @@
+/* eslint-disable react/jsx-key */
 import { Button, Grid, Paper, Table, TableCell, TableContainer, TableRow } from '@mui/material';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-let cartData = ['item1', 'item2'];
+import { type RootState } from '../redux/store';
+import CartItemCard from './CartItemCard';
 
 export const Cart = () => {
+	const cart = useSelector((state: RootState) => state.cart);
+
 	return (
 		<Grid container>
-			<Grid xs={12} sm={7} p={4}>
-				{cartData.map((item, index) => (
-					<CartItem key={index}>{item}</CartItem>
+			<Grid xs={12} sm={7} p={4} item>
+				{cart.items.map((item, index) => (
+					<CartItemCard id={item.productId} qty={item.quantity} price={item.price} />
 				))}
 			</Grid>
-			<Grid xs={12} sm={5} p={4}>
-				<TableContainer component={Paper}>
+			<Grid xs={12} sm={5} p={4} item>
+				<TableContainer
+					component={Paper}
+					sx={{
+						'& 	.MuiTableCell-head': {
+							fontWeight: 'bold',
+						},
+						'& 	.MuiTableCell-root': {
+							fontSize: '1.2em',
+						},
+					}}
+				>
 					<Table>
 						<TableRow>
-							<TableCell>Total Items</TableCell>
-							<TableCell>4</TableCell>
+							<TableCell variant="head">Total Items</TableCell>
+							<TableCell> {cart.items.reduce((sum, { quantity }) => sum + Number(quantity), 0)}</TableCell>
 						</TableRow>
 						<TableRow>
-							<TableCell>Total Price</TableCell>
-							<TableCell>400$</TableCell>
+							<TableCell variant="head">Total Price</TableCell>
+							<TableCell>{cart.items.reduce((acc, { price, quantity }) => acc + price * quantity, 0)} $</TableCell>
 						</TableRow>
 					</Table>
 				</TableContainer>
@@ -31,8 +45,4 @@ export const Cart = () => {
 			</Grid>
 		</Grid>
 	);
-};
-
-const CartItem: React.FunctionComponent<{ children: React.ReactNode; key: number }> = (prop) => {
-	return <div key={prop.key}>{prop.children}</div>;
 };

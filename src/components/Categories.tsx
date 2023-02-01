@@ -30,7 +30,7 @@ export const Categories = () => {
 						fontSize: '1.5em',
 						textDecoration: 'none',
 						padding: '.2rem',
-						color: 'darkblue',
+						color: 'black',
 					}}
 				>
 					{category}

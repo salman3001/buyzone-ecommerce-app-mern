@@ -1,8 +1,9 @@
-import React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
-import { CSSObject } from '@emotion/react';
+import { type CSSObject } from '@emotion/react';
+import { useSearchParams } from 'react-router-dom';
+import { type KeyboardEventHandler } from 'react';
 
 const Search = styled('div')(
 	({ theme }): CSSObject => ({
@@ -51,12 +52,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export const SearchField = () => {
+	const [, setParams] = useSearchParams();
+
+	const searchHandler = (e: KeyboardEventHandler<HTMLInputElement>) => {
+		if (e.key === 'Enter') {
+			setParams({
+				search: e.currentTarget.value,
+			});
+		}
+	};
 	return (
 		<Search>
-			<SearchIconWrapper>
+			<SearchIconWrapper
+				onClick={(e) => {
+					setParams({
+						search: e.currentTarget.value,
+					});
+				}}
+			>
 				<SearchIcon />
 			</SearchIconWrapper>
-			<StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
+			<StyledInputBase placeholder="Search…" onKeyDown={searchHandler} inputProps={{ 'aria-label': 'search' }} />
 		</Search>
 	);
 };

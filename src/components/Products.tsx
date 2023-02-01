@@ -1,12 +1,10 @@
 import { Alert, Box, CircularProgress, Grid } from '@mui/material';
-import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { ProductCard } from './ProductCard';
-import { RootState } from '../redux/store';
 import { useGetProductsQuery } from '../redux/api/productsApi';
 
 const Products = () => {
-	const [searchParams, setSearcParams] = useSearchParams();
+	const [searchParams] = useSearchParams();
 
 	const category = searchParams.get('category');
 	const search = searchParams.get('search');
@@ -28,7 +26,7 @@ const Products = () => {
 	if (sortPrice != null) queryString.sortPrice = sortPrice;
 	if (sortDate != null) queryString.sortDate = sortDate;
 
-	const { data: products, isLoading, isFetching, isError, isSuccess } = useGetProductsQuery(queryString);
+	const { data: products, isLoading, isFetching, isError } = useGetProductsQuery(queryString);
 
 	return (
 		<Box sx={{ width: '100%' }}>
@@ -54,12 +52,17 @@ const Products = () => {
 						placeContent: 'center',
 					}}
 				>
-					{products &&
-						products.map((product) => (
-							<Grid key={product._id} padding={2}>
-								<ProductCard name={product.name} price={product.price} images={product.images} _id={product._id} />
-							</Grid>
-						))}
+					{products?.map((product) => (
+						<Grid key={product._id} padding={2}>
+							<ProductCard
+								name={product.name}
+								price={product.price}
+								images={product.images}
+								_id={product._id}
+								inStock={Number(product.inStock)}
+							/>
+						</Grid>
+					))}
 				</Grid>
 			)}
 		</Box>

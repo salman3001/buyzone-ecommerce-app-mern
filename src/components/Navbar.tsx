@@ -2,8 +2,11 @@ import { Typography, Toolbar, AppBar, Stack, IconButton, Badge, Box } from '@mui
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { ProfileMenu } from './ProfileMenu';
 import { SearchField } from './SearchField';
+import { useSelector } from 'react-redux';
+import { type RootState } from '../redux/store';
 
 export const Navbar = () => {
+	const cart = useSelector((state: RootState) => state.cart);
 	return (
 		<AppBar position="static" elevation={0}>
 			<Toolbar>
@@ -24,6 +27,7 @@ export const Navbar = () => {
 							':visited': {
 								color: 'white',
 							},
+							border: '2px white',
 						}}
 					>
 						BuyZone
@@ -32,13 +36,13 @@ export const Navbar = () => {
 
 					<Stack direction="row" spacing={3}>
 						<Badge
-							badgeContent={4}
+							badgeContent={cart.items.length}
 							color="warning"
 							sx={{
 								'& .MuiBadge-badge': { top: 10 },
 							}}
 						>
-							<IconButton href="/cart">
+							<IconButton href="/user/cart">
 								<ShoppingCartOutlinedIcon />
 							</IconButton>
 						</Badge>

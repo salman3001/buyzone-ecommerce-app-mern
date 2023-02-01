@@ -7,8 +7,6 @@ import { Signup } from './routes/Signup';
 import { Login } from './routes/Login';
 import Dashboard from './routes/Dashboard';
 import { MyOrders } from './routes/MyOrders';
-import { useDispatch } from 'react-redux';
-import { getUser } from './redux/userSlice';
 import Layout from './components/Layout';
 import { Categories } from './components/Categories';
 import { AdminMenu } from './components/AdminMenu';
@@ -18,15 +16,15 @@ import Products from './components/Products';
 import NotFound from './components/NotFound';
 
 function App() {
-	const dispatch = useDispatch();
-	dispatch(getUser());
 	return (
 		<div>
 			<Routes>
 				<Route path="/" element={<Layout sideBar={true} sideBarContent={Categories} />}>
 					<Route path="" element={<Products />} />
-					<Route path="product" element={<Products />} />
-					<Route path="products/:id" element={<Product />} />
+					<Route path="products" element={<Products />} />
+				</Route>
+				<Route path="product" element={<Layout sideBar={false} />}>
+					<Route path=":id" element={<Product />} />
 				</Route>
 				<Route path="admin" element={<Layout sideBar={true} sideBarContent={AdminMenu} />}>
 					<Route path="dashboard" element={<Dashboard />}>

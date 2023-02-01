@@ -3,11 +3,13 @@ import userReducer from './userSlice';
 import tokenReducer from './tokenSlice';
 import { userApi } from './api/userApi';
 import { productApi } from './api/productsApi';
+import cartReducer from './cartslice';
 
 export const store = configureStore({
 	reducer: {
 		user: userReducer,
 		token: tokenReducer,
+		cart: cartReducer,
 		[userApi.reducerPath]: userApi.reducer,
 		[productApi.reducerPath]: productApi.reducer,
 	},

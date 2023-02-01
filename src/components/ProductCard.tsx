@@ -1,15 +1,19 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { addToCart } from '../redux/cartslice';
 import { baseUrl } from '../Utils/baseUrl';
-export const ProductCard: React.FunctionComponent<Omit<Iproduct, 'description' | 'category' | 'inStock'>> = ({
+export const ProductCard: React.FunctionComponent<Omit<Iproduct, 'description' | 'category'>> = ({
 	name,
 	price,
 	images,
 	_id,
+	inStock,
 }) => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	return (
 		<Card sx={{ maxWidth: 200 }}>
@@ -23,13 +27,13 @@ export const ProductCard: React.FunctionComponent<Omit<Iproduct, 'description' |
 					cursor: 'pointer',
 				}}
 				onClick={() => {
-					navigate(`/products/${_id}`);
+					navigate(`/product/${_id}`);
 				}}
 			/>
 			<CardContent>
 				<Typography
 					onClick={() => {
-						navigate(`/products/${_id}`);
+						navigate(`/product/${_id}`);
 					}}
 					overflow="hidden"
 					height={50}
@@ -47,7 +51,13 @@ export const ProductCard: React.FunctionComponent<Omit<Iproduct, 'description' |
 					justifyContent: 'end',
 				}}
 			>
-				<Button variant="contained" size="small">
+				<Button
+					variant="contained"
+					size="small"
+					onClick={() => {
+						dispatch(addToCart({ id: _id, inStock, price }));
+					}}
+				>
 					Add to cart
 				</Button>
 			</CardActions>

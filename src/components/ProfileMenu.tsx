@@ -3,14 +3,14 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { stringAvatar } from '../Utils/stringAvatar';
-import { RootState } from '../redux/store';
+import { type RootState } from '../redux/store';
 import { removeUser } from '../redux/userSlice';
 import { useLogoutMutation } from '../redux/api/userApi';
 
 export const ProfileMenu = () => {
 	const { user } = useSelector((state: RootState) => state.user);
 	const [anchor, setAnchor] = useState<null | HTMLElement>(null);
-	let open = Boolean(anchor);
+	const open = Boolean(anchor);
 	const handleOpen = (e: React.MouseEvent<HTMLDivElement>) => {
 		setAnchor(e.currentTarget);
 	};
@@ -23,10 +23,10 @@ export const ProfileMenu = () => {
 			<Avatar {...(userName ? stringAvatar(userName) : null)} onClick={handleOpen} />
 			<Menu open={open} anchorEl={anchor} onClose={handleClose}>
 				<MenuItem onClick={handleClose}>
-					<RouterLink to="/profile">My Profile</RouterLink>
+					<RouterLink to="/user/profile">My Profile</RouterLink>
 				</MenuItem>
 				<MenuItem onClick={handleClose}>
-					<RouterLink to="/myorders">My Orders</RouterLink>
+					<RouterLink to="user/myorders">My Orders</RouterLink>
 				</MenuItem>
 				<MenuItem onClick={handleClose}>
 					<Link component={RouterLink} to="/admin/dashboard/">
@@ -41,7 +41,7 @@ export const ProfileMenu = () => {
 
 const Login = () => <RouterLink to="/login">Login</RouterLink>;
 const Logout = () => {
-	const [logout, { isLoading, isSuccess }] = useLogoutMutation();
+	const [logout, { isLoading }] = useLogoutMutation();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -50,7 +50,7 @@ const Logout = () => {
 			onClick={async () => {
 				try {
 					const res = await logout(null).unwrap();
-					res && dispatch(removeUser());
+					Boolean(res) && dispatch(removeUser());
 					navigate('/');
 				} catch (err) {
 					alert('server error loging  out');
