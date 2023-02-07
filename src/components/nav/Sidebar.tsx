@@ -15,8 +15,8 @@ export const Sidebar: React.FunctionComponent<ISidebar> = ({ Content }) => {
 		<Box
 			component="nav"
 			sx={{
-				maxWidth: ['100%', '200px'],
-				minWidth: ['100%', '200px'],
+				maxWidth: ['100%', '150px'],
+				minWidth: ['100%', '150px'],
 				height: '100%',
 			}}
 		>

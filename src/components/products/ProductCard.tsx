@@ -3,8 +3,8 @@ import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addToCart } from '../redux/cartslice';
-import { baseUrl } from '../Utils/baseUrl';
+import { addToCart } from '../../redux/cartslice';
+import { baseUrl } from '../../Utils/baseUrl';
 export const ProductCard: React.FunctionComponent<Omit<Iproduct, 'description' | 'category'>> = ({
 	name,
 	price,

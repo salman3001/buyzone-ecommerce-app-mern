@@ -3,9 +3,9 @@ import { Stack } from '@mui/system';
 import React, { type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useGetProductQuery } from '../redux/api/productsApi';
-import { addToCart, reduceCartItem } from '../redux/cartslice';
-import { baseUrl } from '../Utils/baseUrl';
+import { useGetProductQuery } from '../../redux/api/productsApi';
+import { addToCart, reduceCartItem } from '../../redux/cartslice';
+import { baseUrl } from '../../Utils/baseUrl';
 
 interface ICartItem {
 	id: string;

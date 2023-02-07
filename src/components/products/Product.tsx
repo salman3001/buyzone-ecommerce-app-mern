@@ -1,9 +1,9 @@
 import { Box, Grid, Stack, Typography, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import ProductImagesGallery from '../components/ProductImageGallery';
-import { useGetProductQuery } from '../redux/api/productsApi';
-import { addToCart } from '../redux/cartslice';
+import ProductImagesGallery from './ProductImageGallery';
+import { useGetProductQuery } from '../../redux/api/productsApi';
+import { addToCart } from '../../redux/cartslice';
 
 export const Product = () => {
 	const dispatch = useDispatch();

@@ -1,19 +1,19 @@
 import { Routes, Route } from 'react-router-dom';
-import { Product } from './routes/Product';
-import { Cart } from './components/Cart';
-import { Profile } from './routes/Profile';
-import { ShippingScreen } from './routes/ShippingScreen';
-import { Signup } from './routes/Signup';
-import { Login } from './routes/Login';
-import Dashboard from './routes/Dashboard';
-import { MyOrders } from './routes/MyOrders';
-import Layout from './components/Layout';
-import { Categories } from './components/Categories';
-import { AdminMenu } from './components/AdminMenu';
-import { AddNewProduct } from './components/AddNewProduct';
-import { Orders } from './components/Orders';
-import Products from './components/Products';
+import { Product } from './components/products/Product';
+import { Cart } from './components/cart/Cart';
+import { Profile } from './components/routes/Profile';
+import { ShippingScreen } from './components/routes/ShippingScreen';
+import { Signup } from './components/routes/Signup';
+import { Login } from './components/routes/Login';
+import Dashboard from './components/routes/Dashboard';
+import { Orders } from './components/orders/Orders';
+import Layout from './components/nav/Layout';
+import { Categories } from './components/products/Categories';
+import { AdminMenu } from './components/nav/AdminMenu';
+import { AddNewProduct } from './components/products/AddNewProduct';
+import Products from './components/products/Products';
 import NotFound from './components/NotFound';
+import MyOrderCategories from './components/orders/MyOrderCategories';
 
 function App() {
 	return (
@@ -37,10 +37,16 @@ function App() {
 				<Route path="user" element={<Layout sideBar={false} />}>
 					<Route path="cart" element={<Cart />} />
 					<Route path="profile" element={<Profile />} />
-					<Route path="myorders" element={<MyOrders />} />
+
 					<Route path="shippingscreen" element={<ShippingScreen />} />
 					<Route path="signup" element={<Signup />} />
 					<Route path="login" element={<Login />} />
+				</Route>
+				<Route path="user/orders" element={<Layout sideBar={true} sideBarContent={MyOrderCategories} />}>
+					<Route path="" element={<Orders />} />
+					<Route path="pending" element={<Orders />} />
+					<Route path="delivered" element={<Orders />} />
+					<Route path="cancled" element={<Orders />} />
 				</Route>
 				<Route path="*" element={<NotFound />}></Route>
 			</Routes>

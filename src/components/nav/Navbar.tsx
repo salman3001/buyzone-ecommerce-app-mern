@@ -3,7 +3,8 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { ProfileMenu } from './ProfileMenu';
 import { SearchField } from './SearchField';
 import { useSelector } from 'react-redux';
-import { type RootState } from '../redux/store';
+import { type RootState } from '../../redux/store';
+import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
 	const cart = useSelector((state: RootState) => state.cart);
@@ -19,8 +20,8 @@ export const Navbar = () => {
 				>
 					<Typography
 						variant="h5"
-						component="a"
-						href="/"
+						component={Link}
+						to="/"
 						sx={{
 							fontWeight: 'bold',
 							textDecoration: 'none',

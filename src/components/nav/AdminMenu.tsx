@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import MuiLink from './MuiLink';
 
 const menuItems = ['Add new product', 'Products', 'Orders', 'Total Sales'];
 
@@ -14,9 +14,9 @@ export const AdminMenu = () => {
 			}}
 		>
 			{menuItems.map((category, index) => (
-				<NavLink key={index} to={`/admin/dashboard/${category.replace(/\s/g, '')}`}>
-					{category}
-				</NavLink>
+				<div key={index}>
+					<MuiLink to={`/admin/dashboard/${category.replace(/\s/g, '')}`} label={category} />
+				</div>
 			))}
 		</Box>
 	);

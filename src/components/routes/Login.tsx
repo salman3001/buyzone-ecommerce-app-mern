@@ -5,9 +5,9 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { useLoginMutation } from '../redux/api/userApi';
-import { RootState, AppDispatch } from '../redux/store';
-import { setUser } from '../redux/userSlice';
+import { useLoginMutation } from '../../redux/api/userApi';
+import { RootState, AppDispatch } from '../../redux/store';
+import { setUser } from '../../redux/userSlice';
 
 const formScheme = yup.object().shape({
 	email: yup.string().email('not a valid email').required('this fiels is required'),

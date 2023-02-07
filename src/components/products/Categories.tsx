@@ -1,6 +1,5 @@
 import { Box } from '@mui/material';
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import MuiLink from '../nav/MuiLink';
 
 const sampleCategories = ['Mobiles', 'Tablets', 'Laptops', 'Desktops', 'Smart Tvs', 'Accesories'];
 
@@ -14,27 +13,15 @@ export const Categories = () => {
 				py: 2,
 			}}
 		>
-			<NavLink
+			<MuiLink
 				to="/"
 				style={{
 					fontSize: '1.5em',
 				}}
-			>
-				All Products
-			</NavLink>
+				label="All Products"
+			/>
 			{sampleCategories.map((category, index) => (
-				<NavLink
-					key={index}
-					to={`/?category=${category}`}
-					style={{
-						fontSize: '1.5em',
-						textDecoration: 'none',
-						padding: '.2rem',
-						color: 'black',
-					}}
-				>
-					{category}
-				</NavLink>
+				<MuiLink key={index} to={`/?category=${category}`} label={category} />
 			))}
 		</Box>
 	);

@@ -11,8 +11,8 @@ import {
 } from '@mui/material';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { FunctionComponent, useState } from 'react';
-import { useAddProductMutation } from '../redux/api/productsApi';
+import { type FunctionComponent, useState } from 'react';
+import { useAddProductMutation } from '../../redux/api/productsApi';
 
 const formSchema = yup.object().shape({
 	productName: yup

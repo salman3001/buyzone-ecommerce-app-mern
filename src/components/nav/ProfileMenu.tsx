@@ -1,11 +1,12 @@
 import { Avatar, MenuItem, Menu, Link } from '@mui/material';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { stringAvatar } from '../Utils/stringAvatar';
-import { type RootState } from '../redux/store';
-import { removeUser } from '../redux/userSlice';
-import { useLogoutMutation } from '../redux/api/userApi';
+import { stringAvatar } from '../../Utils/stringAvatar';
+import { type RootState } from '../../redux/store';
+import { removeUser } from '../../redux/userSlice';
+import { useLogoutMutation } from '../../redux/api/userApi';
+import MuiLink from './MuiLink';
 
 export const ProfileMenu = () => {
 	const { user } = useSelector((state: RootState) => state.user);
@@ -23,15 +24,13 @@ export const ProfileMenu = () => {
 			<Avatar {...(userName ? stringAvatar(userName) : null)} onClick={handleOpen} />
 			<Menu open={open} anchorEl={anchor} onClose={handleClose}>
 				<MenuItem onClick={handleClose}>
-					<RouterLink to="/user/profile">My Profile</RouterLink>
+					<MuiLink to="/user/profile" label="My Profile" />
 				</MenuItem>
 				<MenuItem onClick={handleClose}>
-					<RouterLink to="/user/myorders">My Orders</RouterLink>
+					<MuiLink to="/user/myorders" label="My Orders" />
 				</MenuItem>
 				<MenuItem onClick={handleClose}>
-					<Link component={RouterLink} to="/admin/dashboard/">
-						Admin Dashboard
-					</Link>{' '}
+					<MuiLink to="/admin/dashboard/" label="Admin Dashboard" />
 				</MenuItem>
 				<MenuItem onClick={handleClose}>{user ? <Logout /> : <Login />}</MenuItem>
 			</Menu>
@@ -39,9 +38,9 @@ export const ProfileMenu = () => {
 	);
 };
 
-const Login = () => <RouterLink to="/user/login">Login</RouterLink>;
+const Login = () => <MuiLink to="/user/login" label="login" />;
 const Logout = () => {
-	const [logout, { isLoading }] = useLogoutMutation();
+	const [logout] = useLogoutMutation();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 

@@ -1,7 +1,7 @@
 import { Alert, Box, CircularProgress, Grid } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 import { ProductCard } from './ProductCard';
-import { useGetProductsQuery } from '../redux/api/productsApi';
+import { useGetProductsQuery } from '../../redux/api/productsApi';
 
 const Products = () => {
 	const [searchParams] = useSearchParams();
