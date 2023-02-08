@@ -27,7 +27,7 @@ export const ProfileMenu = () => {
 					<MuiLink to="/user/profile" label="My Profile" />
 				</MenuItem>
 				<MenuItem onClick={handleClose}>
-					<MuiLink to="/user/myorders" label="My Orders" />
+					<MuiLink to="/user/orders" label="My Orders" />
 				</MenuItem>
 				<MenuItem onClick={handleClose}>
 					<MuiLink to="/admin/dashboard/" label="Admin Dashboard" />
@@ -40,23 +40,5 @@ export const ProfileMenu = () => {
 
 const Login = () => <MuiLink to="/user/login" label="login" />;
 const Logout = () => {
-	const [logout] = useLogoutMutation();
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
-
-	return (
-		<Link
-			onClick={async () => {
-				try {
-					const res = await logout(null).unwrap();
-					Boolean(res) && dispatch(removeUser());
-					navigate('/');
-				} catch (err) {
-					alert('server error loging  out');
-				}
-			}}
-		>
-			Logout
-		</Link>
-	);
+	return <MuiLink to="/user/logout" label="Logout" />;
 };

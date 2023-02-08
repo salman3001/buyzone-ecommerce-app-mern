@@ -48,4 +48,5 @@ interface IOrder {
 		mode: 'cod' | 'card';
 		paid: boolean;
 	};
+	createdAt?: Date;
 }

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { useLoginMutation } from '../../redux/api/userApi';
-import { RootState, AppDispatch } from '../../redux/store';
+import { type RootState, type AppDispatch } from '../../redux/store';
 import { setUser } from '../../redux/userSlice';
 
 const formScheme = yup.object().shape({

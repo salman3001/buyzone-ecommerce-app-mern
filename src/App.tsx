@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Product } from './components/products/Product';
 import { Cart } from './components/cart/Cart';
 import { Profile } from './components/routes/Profile';
-import { ShippingScreen } from './components/routes/ShippingScreen';
+import ShippingScreen from './components/shipping/ShippingScreen';
 import { Signup } from './components/routes/Signup';
 import { Login } from './components/routes/Login';
 import Dashboard from './components/routes/Dashboard';
@@ -14,6 +14,10 @@ import { AddNewProduct } from './components/products/AddNewProduct';
 import Products from './components/products/Products';
 import NotFound from './components/NotFound';
 import MyOrderCategories from './components/orders/MyOrderCategories';
+import Logout from './components/routes/Logout';
+import IsAuth from './components/auth/IsAuth';
+import IsAdmin from './components/auth/isAdmin';
+import Order from './components/orders/Order';
 
 function App() {
 	return (
@@ -27,7 +31,7 @@ function App() {
 					<Route path=":id" element={<Product />} />
 				</Route>
 				<Route path="admin" element={<Layout sideBar={true} sideBarContent={AdminMenu} />}>
-					<Route path="dashboard" element={<Dashboard />}>
+					<Route path="dashboard" element={<IsAdmin Component={Dashboard} />}>
 						<Route path="" element={'welcome admin'} />
 						<Route path="AddNewProduct" element={<AddNewProduct />} />
 						<Route path="Products" element={<Products />} />
@@ -36,17 +40,17 @@ function App() {
 				</Route>
 				<Route path="user" element={<Layout sideBar={false} />}>
 					<Route path="cart" element={<Cart />} />
-					<Route path="profile" element={<Profile />} />
-
-					<Route path="shippingscreen" element={<ShippingScreen />} />
+					<Route path="profile" element={<IsAuth Component={Profile} />} />
 					<Route path="signup" element={<Signup />} />
 					<Route path="login" element={<Login />} />
+					<Route path="logout" element={<Logout />} />
 				</Route>
 				<Route path="user/orders" element={<Layout sideBar={true} sideBarContent={MyOrderCategories} />}>
-					<Route path="" element={<Orders />} />
-					<Route path="pending" element={<Orders />} />
-					<Route path="delivered" element={<Orders />} />
-					<Route path="cancled" element={<Orders />} />
+					<Route path="" element={<IsAuth Component={Orders} />} />
+					<Route path=":id" element={<IsAuth Component={Order} />} />
+				</Route>
+				<Route path="shippingscreen" element={<Layout sideBar={false} />}>
+					<Route path="" element={<IsAuth Component={ShippingScreen} />}></Route>
 				</Route>
 				<Route path="*" element={<NotFound />}></Route>
 			</Routes>

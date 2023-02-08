@@ -62,6 +62,7 @@ const CartItemCard: FunctionComponent<ICartItem> = ({ id, qty, price }) => {
 								<Typography sx={{ px: 2, color: 'green' }}>{item.inStock} in stock</Typography>
 								Qty
 								<Button
+									variant="contained"
 									sx={{
 										p: 0.1,
 									}}
@@ -73,6 +74,7 @@ const CartItemCard: FunctionComponent<ICartItem> = ({ id, qty, price }) => {
 								</Button>
 								{qty}
 								<Button
+									variant="contained"
 									sx={{
 										p: 0.1,
 									}}

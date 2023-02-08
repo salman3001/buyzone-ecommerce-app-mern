@@ -43,7 +43,7 @@ export const Navbar = () => {
 								'& .MuiBadge-badge': { top: 10 },
 							}}
 						>
-							<IconButton href="/user/cart">
+							<IconButton LinkComponent={Link} to="/user/cart">
 								<ShoppingCartOutlinedIcon />
 							</IconButton>
 						</Badge>
