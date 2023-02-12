@@ -22,10 +22,10 @@ const OrderCard: FunctionComponent<IOrderCard> = (prop) => {
 					'& .MuiTypography-root': {
 						fontSize: '1em',
 					},
-					p: 1,
+					p: 2,
 					justifyContent: 'space-evenly',
 				}}
-				direction="row"
+				direction={['column', 'column', 'row']}
 				gap={2}
 			>
 				<Typography>{moment(prop.date).format('DD/MM/YY')}</Typography>
@@ -33,6 +33,7 @@ const OrderCard: FunctionComponent<IOrderCard> = (prop) => {
 				<Typography> {`(status- ${prop.status})`} </Typography>
 				<Button
 					variant="contained"
+					sx={{ mb: 2 }}
 					onClick={() => {
 						navigate(`/user/orders/${prop.id}`);
 					}}
@@ -40,7 +41,7 @@ const OrderCard: FunctionComponent<IOrderCard> = (prop) => {
 					View Detail
 				</Button>
 			</Stack>
-			<Divider />
+			<Divider flexItem />
 		</>
 	);
 };

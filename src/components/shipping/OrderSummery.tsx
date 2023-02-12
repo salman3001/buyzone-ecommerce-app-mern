@@ -1,7 +1,8 @@
 import { Typography, Box, Stack, Container, Button } from '@mui/material';
 import React, { type FunctionComponent, type Dispatch } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useAddorderMutation } from '../../redux/api/ordersApi';
+import { clearCart } from '../../redux/cartslice';
 import { type RootState } from '../../redux/store';
 import SummaryProductCard from './SummaryProductCard';
 
@@ -9,11 +10,15 @@ const OrderSummery: FunctionComponent<{ setActiveStep: Dispatch<React.SetStateAc
 	setActiveStep,
 }) => {
 	const orderDetail = useSelector((state: RootState) => state.shippingScreen);
-	const [addOrder, { isError, isLoading, isSuccess }] = useAddorderMutation();
+	const [addOrder, { isError, isLoading }] = useAddorderMutation();
+	const dispatch = useDispatch();
 
 	const handelSubmit = async () => {
 		await addOrder(orderDetail).unwrap();
-		!isError && setActiveStep(3);
+		if (!isError) {
+			dispatch(clearCart());
+			setActiveStep(3);
+		}
 	};
 	return (
 		<Container maxWidth="sm">

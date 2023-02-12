@@ -18,8 +18,8 @@ export const Orders = () => {
 	return (
 		<Box
 			sx={{
-				p: 4,
 				width: 1,
+				py: 2,
 			}}
 		>
 			{isLoading || isFetching

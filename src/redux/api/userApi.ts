@@ -12,6 +12,9 @@ export const userApi = createApi({
 		Logout: builder.mutation({
 			query: () => ({ url: 'api/logout', method: 'POST' }),
 		}),
+		IsLoggedin: builder.query<any, any>({
+			query: () => 'api/users/isloggedin',
+		}),
 		GetUsers: builder.query<IUser[], any>({
 			query: (id) => 'api/users',
 			providesTags: (result) =>
@@ -41,4 +44,5 @@ export const {
 	useGetUsersQuery,
 	useLazyGetProfileQuery,
 	useUpdateUserMutation,
+	useIsLoggedinQuery,
 } = userApi;
