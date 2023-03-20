@@ -1,24 +1,35 @@
-import { useEffect } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useLogoutMutation } from '../../redux/api/userApi';
+import { useLogoutQuery } from '../../redux/api/authApi';
 import { removeUser } from '../../redux/userSlice';
+import { baseUrl } from '../../Utils/baseUrl';
 
 const Logout = () => {
-	const [logout] = useLogoutMutation();
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const logoutHandler = async () => {
-		const res = await logout(null).unwrap();
-		Boolean(res) && dispatch(removeUser());
-		navigate('/user/login');
-	};
+	const [isError, setError] = useState<boolean>(false)
+	const abort = new AbortController()
 	useEffect(() => {
-		void logoutHandler();
-	}, []);
+		axios.get(baseUrl + 'api/buyzone/auth/logout', { signal: abort.signal }).then(() => {
+			dispatch(removeUser());
+			navigate('/user/login');
+		}).catch((err) => {
+			setError(true)
+		})
 
-	return <p>Loging out ....</p>;
+		return () => {
+			abort.abort()
+		}
+
+	}, [])
+
+
+
+	return <p>{isError && "Error Logging out! Something went wrong"}</p>;
 };
 
 export default Logout;
