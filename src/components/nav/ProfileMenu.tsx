@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { stringAvatar } from '../../Utils/stringAvatar';
 import { type RootState } from '../../redux/store';
-import { removeUser } from '../../redux/userSlice';
-import { useLogoutMutation } from '../../redux/api/userApi';
+// import { removeUser } from '../../redux/userSlice';
+// import { useLogoutQuery} from '../../redux/api/authApi';
 import MuiLink from './MuiLink';
 
 export const ProfileMenu = () => {

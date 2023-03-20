@@ -21,7 +21,7 @@ const Order = () => {
 					<Stack gap={2}>
 						{orderDetail?.products.map((product, index) => (
 							<Box key={index}>
-								<SummaryProductCard id={product.productId} price={product.price} qty={product.quantity} />
+								<SummaryProductCard id={product.id} price={product.price} qty={product.quantity} />
 							</Box>
 						))}
 					</Stack>

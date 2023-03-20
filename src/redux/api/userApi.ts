@@ -1,48 +1,38 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { baseUrl } from '../../Utils/baseUrl';
 
 export const userApi = createApi({
 	reducerPath: 'userApi',
-	baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5173/' }),
+	baseQuery: fetchBaseQuery({ baseUrl: baseUrl + 'api/buyzone' }),
 	tagTypes: ['Users'],
 	endpoints: (builder) => ({
-		Login: builder.mutation<IUser, any>({
-			query: (body) => ({ url: 'api/login', method: 'POST', body }),
-			transformResponse: (response: { user: IUser }, meta, arg) => response.user,
-		}),
-		Logout: builder.mutation({
-			query: () => ({ url: 'api/logout', method: 'POST' }),
-		}),
-		IsLoggedin: builder.query<any, any>({
-			query: () => 'api/users/isloggedin',
-		}),
 		GetUsers: builder.query<IUser[], any>({
-			query: (id) => 'api/users',
-			providesTags: (result) =>
-				result
-					? [...result.map(({ _id }) => ({ type: 'Users' as const, _id })), { type: 'Users', id: 'LIST' }]
-					: [{ type: 'Users', id: 'LIST' }],
+			query: () => 'users',
+			providesTags: [{ type: 'Users', id: 'LIST' }],
 		}),
-		GetProfile: builder.query<IUser[], string>({
-			query: (id) => `api/users${id}`,
+		GetUser: builder.query<IUser[], string>({
+			query: (id) => `users${id}`,
 			providesTags: (_result, _error, id) => [{ type: 'Users', id }],
 		}),
-		UpdateUser: builder.mutation<IUser, Partial<IUser>>({
-			query: (body) => ({
-				url: `api/users/`,
+		UpdateUser: builder.mutation<IUser, { id: string; body: Partial<IUser> }>({
+			query: ({ id, body }) => ({
+				url: `users/${id}`,
 				method: 'PATCH',
 				body,
 			}),
-			invalidatesTags: (user, _error, _arg) => [{ type: 'Users', id: user?._id }],
+			invalidatesTags: (_user, _error, { id }) => [{ type: 'Users', id }],
+		}),
+		DeleteUser: builder.mutation<IUser, string>({
+			query: (id) => ({
+				url: `users/${id}`,
+				method: 'Delete',
+			}),
+			invalidatesTags: (_result, _error, id) => [
+				{ type: 'Users', id },
+				{ type: 'Users', id: 'LIST' },
+			],
 		}),
 	}),
 });
 
-export const {
-	useLoginMutation,
-	useLogoutMutation,
-	useGetProfileQuery,
-	useGetUsersQuery,
-	useLazyGetProfileQuery,
-	useUpdateUserMutation,
-	useIsLoggedinQuery,
-} = userApi;
+export const { useGetUsersQuery, useGetUserQuery, useUpdateUserMutation } = userApi;

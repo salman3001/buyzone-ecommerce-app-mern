@@ -78,7 +78,6 @@ export const AddNewProduct: FunctionComponent = () => {
 					flexDirection: 'column',
 					py: 4,
 					minHeight: '50vh',
-
 					gap: 2,
 				}}
 				onSubmit={(e) => {
@@ -164,7 +163,7 @@ export const AddNewProduct: FunctionComponent = () => {
 							});
 						}}
 						multiple
-						// error={formik.touched.files && Boolean(formik.errors.files)}
+					// error={formik.touched.files && Boolean(formik.errors.files)}
 					/>
 				</Button>
 				{fileName?.map((name, index) => (

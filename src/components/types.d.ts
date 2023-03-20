@@ -6,10 +6,12 @@ interface Iproduct {
 	inStock: number;
 	description: string;
 	images: string[];
+	totalReviews?: number;
+	totalStars?: number;
 }
 
 interface IUser {
-	_id: string;
+	id: string;
 	name: string;
 	isAdmin: boolean;
 	email: string;
@@ -49,4 +51,12 @@ interface IOrder {
 		paid: boolean;
 	};
 	createdAt?: Date;
+}
+
+interface IReview {
+	productId: string;
+	userId: string;
+	userName: string;
+	totalStars: number;
+	reviewMessage: string;
 }

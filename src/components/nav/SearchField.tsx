@@ -2,8 +2,8 @@ import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { type CSSObject } from '@emotion/react';
-import { createSearchParams, useNavigate } from 'react-router-dom';
-import { type KeyboardEventHandler } from 'react';
+import { createSearchParams, useNavigate, useParams } from 'react-router-dom';
+import { useRef, type KeyboardEventHandler } from 'react';
 
 const Search = styled('div')(
 	({ theme }): CSSObject => ({
@@ -48,29 +48,32 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export const SearchField = () => {
 	const navigate = useNavigate();
-
+	const inputRef = useRef<HTMLInputElement>()
 	const searchHandler = (e: KeyboardEventHandler<HTMLInputElement>) => {
 		if (e.key === 'Enter') {
 			navigate({
 				pathname: '/',
 				search: createSearchParams({
-					search: e.currentTarget.value,
+					search: (inputRef.current?.value as string)
 				}).toString(),
-			});
+			})
 		}
 	};
 	return (
 		<Search>
 			<SearchIconWrapper
 				onClick={(e) => {
-					setParams({
-						search: e.currentTarget.value,
-					});
+					navigate({
+						pathname: '/',
+						search: createSearchParams({
+							search: (inputRef.current?.value as string)
+						}).toString(),
+					})
 				}}
 			>
 				<SearchIcon />
 			</SearchIconWrapper>
-			<StyledInputBase placeholder="Search…" onKeyDown={searchHandler} inputProps={{ 'aria-label': 'search' }} />
+			<StyledInputBase ref={inputRef} placeholder="Search…" onKeyDown={searchHandler} inputProps={{ 'aria-label': 'search' }} />
 		</Search>
 	);
 };

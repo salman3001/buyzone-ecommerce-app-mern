@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { useLoginMutation } from '../../redux/api/userApi';
+import { useLoginMutation } from '../../redux/api/authApi';
 import { type RootState, type AppDispatch } from '../../redux/store';
 import { setUser } from '../../redux/userSlice';
 
@@ -15,7 +15,7 @@ const formScheme = yup.object().shape({
 });
 
 export const Login = () => {
-	const [login, { isLoading, isError }] = useLoginMutation();
+	const [login, { isError, isLoading }] = useLoginMutation();
 	const navigate = useNavigate();
 	const [query] = useSearchParams();
 	const redirect = (query as any)?.redirect;
@@ -35,8 +35,8 @@ export const Login = () => {
 		},
 		validationSchema: formScheme,
 		onSubmit: async (value) => {
-			const user = await login(value).unwrap();
-			user && dispatch(setUser(user));
+			const response = await login(value).unwrap();
+			response.user && dispatch(setUser(response.user));
 			navigate(redirect || '/');
 		},
 	});

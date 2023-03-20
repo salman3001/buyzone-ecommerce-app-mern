@@ -1,8 +1,7 @@
 import { Alert, Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
 import React, { type FunctionComponent, type Dispatch, useState, type ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { setPayment } from '../../redux/shippingScreenSlice';
+import { setPayment } from '../../redux/orderSlice';
 
 const Payment: FunctionComponent<{ setActiveStep: Dispatch<React.SetStateAction<number>> }> = ({ setActiveStep }) => {
 	const dispatch = useDispatch();

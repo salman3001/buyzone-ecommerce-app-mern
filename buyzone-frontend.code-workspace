@@ -1,5 +1,9 @@
 {
-	"folders": [],
+	"folders": [
+		{
+			"path": "."
+		}
+	],
 	"settings": {
 		"thunder-client.saveToWorkspace": true
 	}

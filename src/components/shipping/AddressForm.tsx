@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Container } from '@mui/system';
 import { useDispatch } from 'react-redux';
-import { saveAddress } from '../../redux/shippingScreenSlice';
+import { saveAddress } from '../../redux/orderSlice';
 import { type Dispatch, type FunctionComponent } from 'react';
 
 const validationSchema = yup.object().shape({

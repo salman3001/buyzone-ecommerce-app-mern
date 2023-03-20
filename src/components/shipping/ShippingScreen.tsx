@@ -1,7 +1,7 @@
 import { Box, Stack, Step, StepLabel, Stepper } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setProducts, setStatus, setUserId } from '../../redux/shippingScreenSlice';
+import { setProducts, setStatus, setUserId } from '../../redux/orderSlice';
 import { type RootState } from '../../redux/store';
 import { AddressForm } from './AddressForm';
 import OrderPlaced from './OrderPlaced ';
@@ -17,7 +17,7 @@ const ShippingScreen = () => {
 	const dispacth = useDispatch();
 
 	useEffect(() => {
-		dispacth(setUserId(user?._id));
+		dispacth(setUserId(user?.id));
 		dispacth(setProducts(cartItems));
 		dispacth(setStatus('Pending'));
 	}, []);
