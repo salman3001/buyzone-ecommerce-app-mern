@@ -20,6 +20,9 @@ const Reviews = ({ id }: IReview) => {
 							reviewMessage={review.reviewMessage}
 							totalStars={review.totalStars}
 							userName={review.userName}
+							userId={review.userId}
+							reviewId={review._id}
+							createdAt={Date.parse(review.createdAt)}
 						/>
 				  ))
 				: 'No Reviews yet'}

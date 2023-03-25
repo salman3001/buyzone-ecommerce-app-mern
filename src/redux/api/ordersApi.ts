@@ -1,13 +1,9 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { baseUrl } from '../../Utils/baseUrl';
+import { baseApi } from './baseApi';
 interface IParams {
 	status?: 'Pending' | 'Confirmed' | 'Delivered' | 'Cancled';
 }
 
-export const orderApi = createApi({
-	reducerPath: 'orderApi',
-	baseQuery: fetchBaseQuery({ baseUrl: baseUrl + 'api/buyzone', credentials: 'include' }),
-	tagTypes: ['orders'],
+const orderApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
 		Getorders: build.query<IOrder[], IParams>({
 			query: (param) => ({

@@ -54,9 +54,11 @@ interface IOrder {
 }
 
 interface IReview {
+	_id?: string;
 	productId: string;
 	userId: string;
 	userName: string;
 	totalStars: number;
 	reviewMessage: string;
+	createdAt?: string;
 }

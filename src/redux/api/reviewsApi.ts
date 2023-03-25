@@ -1,10 +1,6 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { baseUrl } from '../../Utils/baseUrl';
+import { baseApi } from './baseApi';
 
-export const reviewsApi = createApi({
-	reducerPath: 'reviewsApi',
-	baseQuery: fetchBaseQuery({ baseUrl: baseUrl + 'api/buyzone', credentials: 'include' }),
-	tagTypes: ['Reviews'],
+export const reviewsApi = baseApi.injectEndpoints({
 	endpoints: (builder) => ({
 		getReviews: builder.query<IReview[], string>({
 			query: (productId) => `reviews/${productId}`,
@@ -15,7 +11,10 @@ export const reviewsApi = createApi({
 				url: `reviews/${reviewId}`,
 				method: 'DELETE',
 			}),
-			invalidatesTags: (result, error, id) => [{ type: 'Reviews', id: result?.productId }],
+			invalidatesTags: (result, error, id) => [
+				{ type: 'Reviews', id: result?.productId },
+				{ type: 'Products', id: result?.productId },
+			],
 		}),
 		AddReview: builder.mutation<IReview, IReview>({
 			query: (body) => ({
