@@ -3,7 +3,7 @@ import { baseUrl } from '../../Utils/baseUrl';
 
 export const authApi = createApi({
 	reducerPath: 'authApi',
-	baseQuery: fetchBaseQuery({ baseUrl: baseUrl + 'api/buyzone' }),
+	baseQuery: fetchBaseQuery({ baseUrl: baseUrl + 'api/buyzone', credentials: 'include' }),
 	tagTypes: ['Auth'],
 	endpoints: (builder) => ({
 		Login: builder.mutation<any, { email: string; password: string }>({
@@ -16,10 +16,10 @@ export const authApi = createApi({
 			query: () => 'auth/getrefreshtoken',
 		}),
 		IsLogedIn: builder.query<null, null>({
-			query: () => 'islogedin',
+			query: () => 'auth/isloggedin',
 		}),
 		IsAdmin: builder.query<null, null>({
-			query: () => 'isadmin',
+			query: () => 'auth/isadmin',
 		}),
 	}),
 });

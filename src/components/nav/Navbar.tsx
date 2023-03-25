@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
 	const cart = useSelector((state: RootState) => state.cart);
+
 	return (
 		<AppBar position="static" elevation={0}>
 			<Toolbar>

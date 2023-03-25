@@ -1,9 +1,10 @@
-import { Box, Grid, Stack, Typography, Button } from '@mui/material';
+import { Box, Grid, Stack, Typography, Button, Divider, Rating } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import ProductImagesGallery from './ProductImageGallery';
 import { useGetProductQuery } from '../../redux/api/productsApi';
 import { addToCart } from '../../redux/cartslice';
+import Reviews from '../reviews/Reviews';
 
 export const Product = () => {
 	const dispatch = useDispatch();
@@ -12,6 +13,7 @@ export const Product = () => {
 	const { id } = param;
 
 	const { data: product, isLoading, isFetching, isError } = useGetProductQuery(id);
+
 	return (
 		<Box
 			sx={{
@@ -72,8 +74,23 @@ export const Product = () => {
 							<Typography variant="h6">{product?.description}</Typography>
 						</Stack>
 					</Grid>
-					<Grid item xs={12}>
-						Reviews
+					<Grid item xs={12} margin={2}>
+						<Divider />
+						<Stack>
+							<Typography variant="h4">Total Reviews : {product?.totalReviews}</Typography>
+							<Rating readOnly defaultValue={product?.totalStars / product?.totalReviews} size="large" />
+							<Typography>{`${(product?.totalStars / product?.totalReviews).toFixed(1)} Average Rating`}</Typography>
+							<br />
+							<Button
+								href={`/addreview/${product?._id}?redirect=/product/${product?._id}`}
+								sx={{ alignSelf: 'start', fontWeight: 'bold' }}
+								size="large"
+							>
+								Add A Review
+							</Button>
+							<Divider />
+							<Reviews id={product?._id} />
+						</Stack>
 					</Grid>
 				</Grid>
 			) : (

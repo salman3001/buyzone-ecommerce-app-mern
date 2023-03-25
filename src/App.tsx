@@ -18,6 +18,8 @@ import Logout from './components/routes/Logout';
 import IsAuth from './components/auth/IsAuth';
 import IsAdmin from './components/auth/isAdmin';
 import Order from './components/orders/Order';
+import GetRefreshToken from './components/routes/GetRefreshToken';
+import { AddReview } from './components/reviews/AddReview';
 
 function App() {
 	return (
@@ -30,6 +32,9 @@ function App() {
 				<Route path="product" element={<Layout sideBar={false} />}>
 					<Route path=":id" element={<Product />} />
 				</Route>
+				<Route path="addreview" element={<Layout sideBar={false} />}>
+					<Route path=":productId" element={<IsAuth Component={AddReview} />} />
+				</Route>
 				<Route path="admin" element={<Layout sideBar={true} sideBarContent={AdminMenu} />}>
 					<Route path="dashboard" element={<IsAdmin Component={Dashboard} />}>
 						<Route path="" element={'welcome admin'} />
@@ -40,17 +45,18 @@ function App() {
 				</Route>
 				<Route path="user" element={<Layout sideBar={false} />}>
 					<Route path="cart" element={<Cart />} />
-					<Route path="profile" element={<IsAuth Component={Profile} />} />
+					<Route path="profile" element={<IsAuth Component={Profile} redirect="/user/profile" />} />
 					<Route path="signup" element={<Signup />} />
 					<Route path="login" element={<Login />} />
 					<Route path="logout" element={<Logout />} />
+					<Route path="getrefreshtoken" element={<GetRefreshToken />} />
 				</Route>
 				<Route path="user/orders" element={<Layout sideBar={true} sideBarContent={MyOrderCategories} />}>
-					<Route path="" element={<IsAuth Component={Orders} />} />
+					<Route path="" element={<IsAuth Component={Orders} redirect="/user/orders" />} />
 					<Route path=":id" element={<IsAuth Component={Order} />} />
 				</Route>
 				<Route path="shippingscreen" element={<Layout sideBar={false} />}>
-					<Route path="" element={<IsAuth Component={ShippingScreen} />}></Route>
+					<Route path="" element={<IsAuth Component={ShippingScreen} redirect="/shippingscreen" />}></Route>
 				</Route>
 				<Route path="*" element={<NotFound />}></Route>
 			</Routes>

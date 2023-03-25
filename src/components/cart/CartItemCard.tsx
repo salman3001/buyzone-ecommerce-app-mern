@@ -4,8 +4,9 @@ import React, { type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useGetProductQuery } from '../../redux/api/productsApi';
-import { addToCart, reduceCartItem } from '../../redux/cartslice';
+import { addToCart, reduceCartItem, removeFromCart } from '../../redux/cartslice';
 import { baseUrl } from '../../Utils/baseUrl';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 interface ICartItem {
 	id: string;
@@ -83,6 +84,17 @@ const CartItemCard: FunctionComponent<ICartItem> = ({ id, qty, price }) => {
 									}}
 								>
 									+
+								</Button>
+								<Button
+									variant="contained"
+									sx={{
+										p: 0.1,
+									}}
+									onClick={() => {
+										dispatch(removeFromCart({ id }));
+									}}
+								>
+									<DeleteOutlineIcon />
 								</Button>
 							</Stack>
 						</Stack>

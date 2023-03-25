@@ -6,7 +6,7 @@ interface IParams {
 
 export const orderApi = createApi({
 	reducerPath: 'orderApi',
-	baseQuery: fetchBaseQuery({ baseUrl: baseUrl + 'api/buyzone' }),
+	baseQuery: fetchBaseQuery({ baseUrl: baseUrl + 'api/buyzone', credentials: 'include' }),
 	tagTypes: ['orders'],
 	endpoints: (build) => ({
 		Getorders: build.query<IOrder[], IParams>({

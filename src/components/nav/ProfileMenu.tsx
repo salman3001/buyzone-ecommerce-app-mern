@@ -21,7 +21,14 @@ export const ProfileMenu = () => {
 	const userName = (user as any)?.name ? (user as any).name : null;
 	return (
 		<>
-			<Avatar {...(userName ? stringAvatar(userName) : null)} onClick={handleOpen} />
+			<div style={{ cursor: 'pointer' }}>
+				<Avatar
+					sx={{ '& .MuiAvatar-root': { cursor: 'pointer' } }}
+					{...(userName ? stringAvatar(userName) : null)}
+					onClick={handleOpen}
+				/>
+			</div>
+
 			<Menu open={open} anchorEl={anchor} onClose={handleClose}>
 				<MenuItem onClick={handleClose}>
 					<MuiLink to="/user/profile" label="My Profile" />

@@ -3,7 +3,7 @@ import { baseUrl } from '../../Utils/baseUrl';
 
 export const userApi = createApi({
 	reducerPath: 'userApi',
-	baseQuery: fetchBaseQuery({ baseUrl: baseUrl + 'api/buyzone' }),
+	baseQuery: fetchBaseQuery({ baseUrl: baseUrl + 'api/buyzone', credentials: 'include' }),
 	tagTypes: ['Users'],
 	endpoints: (builder) => ({
 		GetUsers: builder.query<IUser[], any>({

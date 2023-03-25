@@ -1,32 +1,15 @@
-import axios from 'axios';
-import React, { useEffect, useState, type FunctionComponent } from 'react';
+import { type FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { type RootState } from '../../redux/store';
-import { baseUrl } from '../../Utils/baseUrl';
+import cookie from 'js-cookie'
+
 
 const IsAdmin: FunctionComponent<{ Component: () => JSX.Element }> = ({ Component }) => {
 	const { user } = useSelector((state: RootState) => state.user)
-	const [isError, setError] = useState<boolean>(false)
-	const [isLoading, setIsLoading] = useState<boolean>(true)
+	const isLoggedInCookie = cookie.get("IS_LOGGED_IN")
 
-	const abort = new AbortController()
-	useEffect(() => {
-		axios.get(baseUrl + 'api/buzone/auth/isadmin', { signal: abort.signal }).then(() => {
-			setIsLoading(false)
-		}).catch((err) => {
-			setIsLoading(false)
-			setError(true)
-		})
-
-		return () => {
-			abort.abort()
-		}
-
-
-	})
-
-	return <>{isLoading ? "Authenticating..." : user?.isAdmin && !isError ? <Component /> : < Navigate to="/user/logout" />}</>;
+	return <>{isLoggedInCookie && user?.isAdmin == true ? <Component /> : user != null ? 'Please Login as admin' : < Navigate to={`/user/getrefreshtoken`} />}</>;
 };
 
 export default IsAdmin;

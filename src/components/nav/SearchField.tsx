@@ -47,14 +47,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export const SearchField = () => {
-	const navigate = useNavigate();
+	const navigate = useNavigate(null);
 	const inputRef = useRef<HTMLInputElement>()
+
 	const searchHandler = (e: KeyboardEventHandler<HTMLInputElement>) => {
 		if (e.key === 'Enter') {
 			navigate({
 				pathname: '/',
 				search: createSearchParams({
-					search: (inputRef.current?.value as string)
+					search: (inputRef.current?.children[0].value)
 				}).toString(),
 			})
 		}
