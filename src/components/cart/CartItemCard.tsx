@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useGetProductQuery } from '../../redux/api/productsApi';
 import { addToCart, reduceCartItem, removeFromCart } from '../../redux/cartslice';
-import { baseUrl } from '../../Utils/baseUrl';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 interface ICartItem {
@@ -35,7 +34,7 @@ const CartItemCard: FunctionComponent<ICartItem> = ({ id, qty, price }) => {
 							}}
 						>
 							<img
-								src={baseUrl + item?.images[0]}
+								src={import.meta.env.VITE_BASE_URL + item?.images[0]}
 								alt="image"
 								style={{
 									cursor: 'pointer',
@@ -60,7 +59,7 @@ const CartItemCard: FunctionComponent<ICartItem> = ({ id, qty, price }) => {
 								{item?.name}
 							</Typography>
 							<Stack direction="row" justifyContent="end" alignItems="center" gap={2}>
-								<Typography sx={{ px: 2, color: 'green' }}>{item.inStock} in stock</Typography>
+								<Typography sx={{ px: 2, color: 'green' }}>{item != null && item.inStock} in stock</Typography>
 								Qty
 								<Button
 									variant="contained"

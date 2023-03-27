@@ -31,10 +31,12 @@
 	},
 	"scripts": {
 		"start": "vite",
-		"build": "tsx && vite build",
+		"build": "vite build",
 		"test": "react-scripts test",
 		"serve": "vite preview",
-		"pretty-quick": "pretty-quick --staged"
+		"pretty-quick": "pretty-quick --staged",
+		"predeploy": "npm run build",
+		"deploy": "npx gh-pages -d dist"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -72,6 +74,7 @@
 		"eslint-plugin-n": "^15.6.1",
 		"eslint-plugin-promise": "^6.1.1",
 		"eslint-plugin-react": "^7.32.2",
+		"gh-pages": "^5.0.0",
 		"husky": "^8.0.3",
 		"prettier": "^2.8.3",
 		"pretty-quick": "^3.1.3",

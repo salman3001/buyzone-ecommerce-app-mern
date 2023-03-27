@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import { Stack } from '@mui/system';
 
 const Products = () => {
+	console.log(import.meta.env.VITE_BASE_URL);
+
 	const [totalPageCount, SetTotalPageCount] = useState<number>(1);
 	const [Page, SetPage] = useState<number>(1);
 	let ItemsPerPage = 5;

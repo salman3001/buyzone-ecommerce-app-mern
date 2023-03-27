@@ -3,7 +3,7 @@ import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import React, { useState } from 'react';
 
 interface ISidebar {
-	Content: () => JSX.Element;
+	Content?: () => JSX.Element;
 }
 
 export const Sidebar: React.FunctionComponent<ISidebar> = ({ Content }) => {

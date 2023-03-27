@@ -5,7 +5,6 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as yup from 'yup';
 import { Container } from '@mui/system';
-import { baseUrl } from '../../Utils/baseUrl';
 
 const validationSchema = yup.object().shape({
 	firstName: yup.string().required('This Field is required').min(2, 'Minimum charectors 2 required'),
@@ -35,7 +34,7 @@ export const Signup = () => {
 			setError(null);
 			setSuccess(null);
 			try {
-				const user = await axios.post(baseUrl + 'users', values);
+				const user = await axios.post(import.meta.env.VITE_BASE_URL + 'users', values);
 				navigate('/');
 			} catch (error) {
 				console.log(error);

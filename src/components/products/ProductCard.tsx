@@ -4,7 +4,6 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addToCart } from '../../redux/cartslice';
-import { baseUrl } from '../../Utils/baseUrl';
 export const ProductCard: React.FunctionComponent<Omit<Iproduct, 'description' | 'category'>> = ({
 	name,
 	price,
@@ -21,7 +20,7 @@ export const ProductCard: React.FunctionComponent<Omit<Iproduct, 'description' |
 				component="img"
 				alt="green iguana"
 				height="140"
-				src={baseUrl + images[0]}
+				src={import.meta.env.VITE_BASE_URL + images[0]}
 				sx={{
 					objectFit: 'contain',
 					cursor: 'pointer',
