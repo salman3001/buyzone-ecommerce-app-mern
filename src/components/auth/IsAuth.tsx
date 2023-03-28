@@ -2,15 +2,21 @@ import { type FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { type RootState } from '../../redux/store';
-import cookie from 'js-cookie'
 
 const IsAuth: FunctionComponent<{ Component: () => JSX.Element; redirect?: string }> = ({ Component, redirect }) => {
-	const { user } = useSelector((state: RootState) => state.user)
-	const isLoggedInCookie = cookie.get("IS_LOGGED_IN")
-	console.log(isLoggedInCookie);
+	const { token, user } = useSelector((state: RootState) => state.user);
 
-	return <>{isLoggedInCookie && user != null ? <Component /> : < Navigate to={`/user/getrefreshtoken?redirect=${redirect}`} />}</>;
-
+	return (
+		<>
+			{user === null || token === null ? (
+				<Navigate to="/user/logout" />
+			) : token.exp * 1000 <= Date.now() ? (
+				<Navigate to="/user/logout" />
+			) : (
+				<Component />
+			)}
+		</>
+	);
 };
 
 export default IsAuth;

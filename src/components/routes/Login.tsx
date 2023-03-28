@@ -1,6 +1,7 @@
 import { Alert, Box, Button, Container, Paper, TextField, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import { useFormik } from 'formik';
+import jwtDecode from 'jwt-decode';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
@@ -17,12 +18,10 @@ const formScheme = yup.object().shape({
 export const Login = () => {
 	const [login, { isError, isLoading }] = useLoginMutation();
 	const navigate = useNavigate();
-	const [query] = useSearchParams();
-	const redirect = (query as any)?.redirect;
 	const { user } = useSelector((state: RootState) => state.user);
 
 	useEffect(() => {
-		user && navigate(redirect || '/');
+		user && navigate('/');
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -35,9 +34,13 @@ export const Login = () => {
 		},
 		validationSchema: formScheme,
 		onSubmit: async (value) => {
-			const response = await login(value).unwrap();
-			response.user && dispatch(setUser(response.user));
-			navigate(redirect || '/');
+			try {
+				const response = await login(value).unwrap();
+				const decode = jwtDecode(response.token) as IUser & { exp: number; iat: number };
+				const { exp, iat, ...user } = decode;
+				dispatch(setUser({ user: user, token: { exp, iat } }));
+				navigate('/');
+			} catch (error: any) {}
 		},
 	});
 

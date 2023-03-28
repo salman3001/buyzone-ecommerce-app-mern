@@ -49,7 +49,7 @@ function App() {
 					<Route path="signup" element={<Signup />} />
 					<Route path="login" element={<Login />} />
 					<Route path="logout" element={<Logout />} />
-					<Route path="getrefreshtoken" element={<GetRefreshToken />} />
+					{/* <Route path="getrefreshtoken" element={<GetRefreshToken />} /> */}
 				</Route>
 				<Route path="user/orders" element={<Layout sideBar={true} sideBarContent={MyOrderCategories} />}>
 					<Route path="" element={<IsAuth Component={Orders} redirect="/user/orders" />} />

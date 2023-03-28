@@ -4,7 +4,18 @@ import { Link } from 'react-router-dom';
 
 const MuiLink: FunctionComponent<{ to: string; label: string }> = ({ to, label }) => {
 	return (
-		<MuiNativeLink component={Link} to={to}>
+		<MuiNativeLink
+			component={Link}
+			to={to}
+			sx={{
+				color: 'black',
+				textDecoration: 'none',
+				'&:hover': {
+					color: 'primary.main',
+					textDecoration: 'underline',
+				},
+			}}
+		>
 			{label}
 		</MuiNativeLink>
 	);

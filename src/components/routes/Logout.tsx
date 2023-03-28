@@ -1,28 +1,18 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
-import { useLogoutQuery } from '../../redux/api/authApi';
+import { useNavigate } from 'react-router-dom';
 import { removeUser } from '../../redux/userSlice';
 
 const Logout = () => {
-
 	const dispatch = useDispatch();
-
-	const { isError, isLoading, refetch, isSuccess } = useLogoutQuery(null)
-	const [params] = useSearchParams()
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		refetch();
-		return () => {
-			dispatch(removeUser())
-		}
+		dispatch(removeUser());
+		navigate('/user/login');
+	}, []);
 
-	}, [])
-
-
-
-	return <p>{isLoading ? "Loging out" : isError ? "Error Logging out! Something went wrong" : <Navigate to={`/user/login?redirect=${params.get('redirect')}`} />}</p>;
+	return <p>Loging out...</p>;
 };
 
 export default Logout;

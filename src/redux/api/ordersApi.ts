@@ -1,3 +1,4 @@
+import { removeUser } from '../userSlice';
 import { baseApi } from './baseApi';
 interface IParams {
 	status?: 'Pending' | 'Confirmed' | 'Delivered' | 'Cancled';
