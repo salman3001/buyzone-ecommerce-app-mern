@@ -34,8 +34,8 @@ export const Signup = () => {
 			setError(null);
 			setSuccess(null);
 			try {
-				const user = await axios.post(import.meta.env.VITE_BASE_URL + 'users', values);
-				navigate('/');
+				const user = await axios.post(import.meta.env.VITE_BASE_URL + 'api/buyzone/users', values);
+				navigate('/user/login');
 			} catch (error) {
 				console.log(error);
 			}

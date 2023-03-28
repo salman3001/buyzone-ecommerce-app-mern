@@ -1,10 +1,12 @@
-import { Typography, Toolbar, AppBar, Stack, IconButton, Badge, Box } from '@mui/material';
+import { Typography, Toolbar, AppBar, Stack, IconButton, Badge, Box, useTheme } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { ProfileMenu } from './ProfileMenu';
 import { SearchField } from './SearchField';
 import { useSelector } from 'react-redux';
 import { type RootState } from '../../redux/store';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { SearchField2 } from './SearchField2';
 
 export const Navbar = () => {
 	const cart = useSelector((state: RootState) => state.cart);
@@ -34,6 +36,7 @@ export const Navbar = () => {
 					>
 						BuyZone
 					</Typography>
+
 					<SearchField />
 
 					<Stack direction="row" spacing={3}>
@@ -52,6 +55,9 @@ export const Navbar = () => {
 					</Stack>
 				</Box>
 			</Toolbar>
+			<Stack justifyContent="Center" p={[1, 0]} alignItems={'center'}>
+				<SearchField2 />
+			</Stack>
 		</AppBar>
 	);
 };

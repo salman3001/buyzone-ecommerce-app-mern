@@ -38,7 +38,7 @@ export const Login = () => {
 				const response = await login(value).unwrap();
 				const decode = jwtDecode(response.token) as IUser & { exp: number; iat: number };
 				const { exp, iat, ...user } = decode;
-				dispatch(setUser({ user: user, token: { exp, iat } }));
+				dispatch(setUser({ user: user, token: { exp, iat, tokenString: response.token } }));
 				navigate('/');
 			} catch (error: any) {}
 		},

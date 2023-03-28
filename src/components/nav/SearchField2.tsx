@@ -18,11 +18,10 @@ const Search = styled('div')(
 		width: '100%',
 
 		[theme.breakpoints.up('sm')]: {
-			marginLeft: theme.spacing(1),
-			width: '50%',
+			display: 'none',
 		},
 		[theme.breakpoints.down('sm')]: {
-			display: 'none',
+			width: '100%',
 		},
 	})
 );
@@ -49,7 +48,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 
-export const SearchField = () => {
+export const SearchField2 = () => {
 	const navigate = useNavigate(null);
 	const inputRef = useRef<HTMLInputElement>();
 

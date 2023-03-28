@@ -13,16 +13,18 @@ const SortBy = () => {
 	};
 
 	return (
-		<FormControl fullWidth sx={{ m: 2 }}>
-			<label id="demo-simple-select-label" style={{ padding: '10px' }}>
+		<FormControl>
+			<label id="demo-simple-select-label" style={{ padding: 10 }}>
 				Sort By
 			</label>
 			<Select
 				labelId="demo-simple-select-label"
 				id="demo-simple-select"
 				label="Sort"
+				value="1"
 				placeholder="SortBy"
 				onChange={handleChange}
+				size="small"
 			>
 				<MenuItem value={'-1'}>Price High to Low</MenuItem>
 				<MenuItem value={'1'}>Price Low to High</MenuItem>

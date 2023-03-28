@@ -1,18 +1,16 @@
 import { Alert, Box, CircularProgress, Grid } from '@mui/material';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { ProductCard } from './ProductCard';
 import { useGetProductsQuery } from '../../redux/api/productsApi';
 import SortBy from './SortBy';
 import ProductPagination from './Pagination';
 import { useEffect, useState } from 'react';
-import { Stack } from '@mui/system';
 
 const Products = () => {
-	console.log(import.meta.env.VITE_BASE_URL);
-
 	const [totalPageCount, SetTotalPageCount] = useState<number>(1);
 	const [Page, SetPage] = useState<number>(1);
-	let ItemsPerPage = 5;
+	const location = useLocation();
+	let ItemsPerPage = 10;
 
 	const [searchParams] = useSearchParams();
 	const category = searchParams.get('category');
@@ -35,7 +33,8 @@ const Products = () => {
 
 	useEffect(() => {
 		if (products != null) SetTotalPageCount(Math.ceil(products.length / ItemsPerPage));
-	});
+		SetPage(1);
+	}, [location]);
 
 	return (
 		<Box sx={{ width: '100%' }}>
@@ -54,37 +53,39 @@ const Products = () => {
 			) : isError ? (
 				<Alert severity="error">Error loading Products</Alert>
 			) : (
-				<>
-					<Grid
-						container
-						gap={4}
+				<Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+					<Box sx={{ px: '20px' }}>
+						<SortBy />
+					</Box>
+					<Box
+						gap={1}
 						sx={{
-							placeContent: 'center',
+							display: 'flex',
+							flexWrap: 'wrap',
+							gap: 2,
+							justifyContent: 'space-around',
 						}}
 					>
-						<SortBy />
 						{products?.map((product, index) => {
 							const pageStart = (Page - 1) * ItemsPerPage;
-							const pageEnd = pageStart + ItemsPerPage;
+							const pageEnd = pageStart + (ItemsPerPage - 1);
 
-							if (index > pageStart && index < pageEnd) {
+							if (index >= pageStart && index <= pageEnd) {
 								return (
-									<Grid key={product._id} padding={2}>
-										<ProductCard
-											name={product.name}
-											price={product.price}
-											images={product.images}
-											_id={product._id}
-											inStock={Number(product.inStock)}
-										/>
-									</Grid>
+									<ProductCard
+										name={product.name}
+										price={product.price}
+										images={product.images}
+										_id={product._id}
+										inStock={Number(product.inStock)}
+									/>
 								);
 							}
 						})}
-					</Grid>
+					</Box>
 
 					<ProductPagination page={Page} SetPage={SetPage} count={totalPageCount} />
-				</>
+				</Box>
 			)}
 		</Box>
 	);

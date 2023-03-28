@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
 	<React.StrictMode>
 		<Provider store={store}>
-			<BrowserRouter basename="/buyzone-ecommerce-app-mern">
+			<BrowserRouter basename={import.meta.env.VITE_BASE_NAME}>
 				<App />
 			</BrowserRouter>
 		</Provider>

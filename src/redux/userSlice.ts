@@ -6,6 +6,7 @@ export interface UserState {
 	token: {
 		exp: number;
 		iat: number;
+		tokenString: string;
 	} | null;
 }
 

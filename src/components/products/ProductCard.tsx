@@ -15,7 +15,7 @@ export const ProductCard: React.FunctionComponent<Omit<Iproduct, 'description' |
 	const dispatch = useDispatch();
 
 	return (
-		<Card sx={{ maxWidth: 200 }}>
+		<Card sx={{ maxWidth: 200 }} key={_id}>
 			<CardMedia
 				component="img"
 				alt="green iguana"

@@ -1,9 +1,9 @@
 import { Box, IconButton } from '@mui/material';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 interface ISidebar {
-	Content?: () => JSX.Element;
+	Content: () => JSX.Element;
 }
 
 export const Sidebar: React.FunctionComponent<ISidebar> = ({ Content }) => {
@@ -11,6 +11,8 @@ export const Sidebar: React.FunctionComponent<ISidebar> = ({ Content }) => {
 	const clickHandler = () => {
 		setState((state) => (state ? false : true));
 	};
+
+	useEffect(() => {});
 	return (
 		<Box
 			component="nav"
@@ -33,14 +35,36 @@ export const Sidebar: React.FunctionComponent<ISidebar> = ({ Content }) => {
 				<MenuOutlinedIcon />
 				Categories
 			</IconButton>
-			<Box
-				sx={{
-					display: [state ? 'block' : 'none', 'block'],
-					padding: 2,
-				}}
-			>
-				<Content />
-			</Box>
+			<ContentArea Content={Content} state={state} setState={setState} />
+		</Box>
+	);
+};
+
+interface IContentArea {
+	Content: () => JSX.Element;
+	state: boolean;
+	setState: Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ContentArea = ({ Content, state, setState }: IContentArea) => {
+	// const ClickHandeler = () => {
+	// 	setState((state) => (state ? false : true));
+	// };
+	// useEffect(() => {
+	// 	window.addEventListener('click', ClickHandeler);
+
+	// 	return () => {
+	// 		window.removeEventListener('click', ClickHandeler);
+	// 	};
+	// }, []);
+	return (
+		<Box
+			sx={{
+				display: [state ? 'block' : 'none', 'block'],
+				padding: 2,
+			}}
+		>
+			<Content />
 		</Box>
 	);
 };

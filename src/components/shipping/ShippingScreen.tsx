@@ -1,6 +1,7 @@
 import { Box, Stack, Step, StepLabel, Stepper } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { setProducts, setStatus, setUserId } from '../../redux/orderSlice';
 import { type RootState } from '../../redux/store';
 import { AddressForm } from './AddressForm';
@@ -15,8 +16,12 @@ const ShippingScreen = () => {
 	const { user } = useSelector((state: RootState) => state.user);
 	const { items: cartItems } = useSelector((state: RootState) => state.cart);
 	const dispacth = useDispatch();
+	const navigate = useNavigate();
 
 	useEffect(() => {
+		if (cartItems.length < 1) {
+			navigate('/');
+		}
 		dispacth(setUserId(user?.id));
 		dispacth(setProducts(cartItems));
 		dispacth(setStatus('Pending'));

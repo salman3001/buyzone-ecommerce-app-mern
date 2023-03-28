@@ -1,8 +1,15 @@
 import { Alert } from '@mui/material';
-import React, { type Dispatch, type FunctionComponent } from 'react';
+import React, { useEffect, type Dispatch, type FunctionComponent } from 'react';
+import { useDispatch } from 'react-redux';
+import { clearCart } from '../../redux/cartslice';
 import MuiLink from '../nav/MuiLink';
 
 const OrderPlaced: FunctionComponent<{ setActiveStep: Dispatch<React.SetStateAction<number>> }> = () => {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(clearCart());
+	}, []);
 	return (
 		<Alert
 			sx={{

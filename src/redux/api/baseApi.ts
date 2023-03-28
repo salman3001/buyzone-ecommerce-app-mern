@@ -7,7 +7,7 @@ export const baseApi = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: import.meta.env.VITE_BASE_URL + 'api/buyzone',
 		prepareHeaders: (headers, { getState }) => {
-			const token = (getState() as RootState).user.token;
+			const token = (getState() as RootState).user.token?.tokenString;
 
 			// If we have a token set in state, let's assume that we should be passing it.
 			if (token) {

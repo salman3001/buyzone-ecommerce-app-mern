@@ -1,10 +1,18 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
 import svgrPlugin from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
-export default defineConfig({
-	plugins: [react({}), viteTsconfigPaths(), svgrPlugin()],
-	base: '/buyzone-ecommerce-app-mern/',
-});
+
+export default ({ mode }) => {
+	process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+
+	// import.meta.env.VITE_NAME available here with: process.env.VITE_NAME
+	// import.meta.env.VITE_PORT available here with: process.env.VITE_PORT
+
+	return defineConfig({
+		plugins: [react({}), viteTsconfigPaths(), svgrPlugin()],
+		base: process.env.VITE_BASE_NAME,
+	});
+};

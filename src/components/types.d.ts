@@ -32,7 +32,7 @@ interface IOrder {
 	_id?: string;
 	userId: string;
 	products: Array<{
-		id: string;
+		productId: string;
 		quantity: number;
 		price: number;
 	}>;

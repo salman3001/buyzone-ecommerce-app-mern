@@ -9,8 +9,10 @@ export const Footer = () => {
 			component="footer"
 			sx={{
 				display: 'flex',
-				justifyContent: 'space-between',
+				flexDirection: ['column', 'row'],
+				justifyContent: ['start', 'space-between'],
 				py: 2,
+				gap: [1, 0],
 				bgcolor: 'primary.dark',
 				color: 'primary.contrastText',
 				'& a': {
